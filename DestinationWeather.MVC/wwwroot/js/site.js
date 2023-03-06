@@ -1,4 +1,4 @@
-﻿
+﻿var markers[];
 var map = L.map('map').setView([41.29, 12.27], 5);
 
 L.tileLayer('https://tile.openstreetmap.org/{z}/{x}/{y}.png', {
@@ -15,19 +15,27 @@ L.tileLayer('https://tile.openstreetmap.org/{z}/{x}/{y}.png', {
 //    .setContent("I am a standalone popup.")
 //    .openOn(map);
 
+
+
 function onMapClick(e) {
     alert("You clicked the map at " + e.latlng);
     var marker = L.marker(e.latlng).addTo(map)
-
-    marker.bindPopup("<b>Hello world!</b><br>I am a popup.").openPopup();
-
+    marker.bindPopup("<b>" + e.location + "</b><br>I am a popup.").openPopup();
+    markers += marker;
 }
 
 map.on('click', onMapClick);
 
-//function search() {
-//    var start = document.modulo.start.value;
-//    var destination = document.modulo.destination.value;
-
-
-//}
+function search() {
+    var start = document.forms["modulo"]["start"].value;
+    var destination = document.forms["modulo"]["destination"].value;
+    $.get(location.protocol + '//nominatim.openstreetmap.org/search?format=json&q=' + start, function (data) {
+        console.log(data);
+        var marker = L.marker(data.latlng).addTo(map)
+        marker.bindPopup("<b>"+start+"</b><br>").openPopup();
+    });
+    $.get(location.protocol + '//nominatim.openstreetmap.org/search?format=json&q=' + destination, function (data) {
+        var marker = L.marker(data.latlng).addTo(map)
+        marker.bindPopup("<b>" + destination + "</b><br>").openPopup();
+    });
+}
