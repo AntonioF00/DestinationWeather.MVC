@@ -8,7 +8,14 @@
 
 <div class="text-center">
     <h1 class="display-4">Welcome</h1>
-    <p>Learn about <a href="https://docs.microsoft.com/aspnet/core">building Web apps with ASP.NET Core</a>.</p>
+    <p>Choose your destination!.</p>
 </div>
 
+<div class="text-center">
+    <form method="post" name="modulo">
+        <tr><td><b>Start</b></td><td><input type="text" name="start"></td></tr>
+        <tr><td><b>Destination</b></td><td><input type="text" name="destination"></td></tr>
+        <button type="submit" onclick="search()">Search</button>
+    </form>
+</div>
  <div id="map"></div>
