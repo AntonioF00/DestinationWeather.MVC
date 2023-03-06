@@ -1,6 +1,7 @@
 var builder = WebApplication.CreateBuilder(args);
 
 //https://leafletjs.com/examples/quick-start/
+//https://stackoverflow.com/questions/68010029/fetching-data-from-openweather-api-based-on-user-location
 
 // Add services to the container.
 builder.Services.AddControllersWithViews();
