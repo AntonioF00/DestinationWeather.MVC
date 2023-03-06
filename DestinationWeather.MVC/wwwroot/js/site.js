@@ -1,4 +1,4 @@
-﻿var start = [];
+﻿ var start = [];
 var destination = [];
 var marker1;
 var marker2;

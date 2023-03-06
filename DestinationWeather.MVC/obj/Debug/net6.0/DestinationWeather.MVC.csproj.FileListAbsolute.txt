@@ -60,3 +60,5 @@ C:/PROGETTI_AN/C#/DestinationWeather.MVC/DestinationWeather.MVC/obj/Debug/net6.0
 /Users/antonioflorio/Projects/DestinationWeather.MVC/DestinationWeather.MVC/obj/Debug/net6.0/DestinationWeather.MVC.pdb
 /Users/antonioflorio/Projects/DestinationWeather.MVC/DestinationWeather.MVC/obj/Debug/net6.0/DestinationWeather.MVC.genruntimeconfig.cache
 /Users/antonioflorio/Projects/DestinationWeather.MVC/DestinationWeather.MVC/obj/Debug/net6.0/ref/DestinationWeather.MVC.dll
+/Users/antonioflorio/Projects/DestinationWeather.MVC/DestinationWeather.MVC/bin/Debug/net6.0/GoogleMaps.LocationServices.dll
+/Users/antonioflorio/Projects/DestinationWeather.MVC/DestinationWeather.MVC/obj/Debug/net6.0/DestinationWeather.MVC.csproj.CopyComplete
