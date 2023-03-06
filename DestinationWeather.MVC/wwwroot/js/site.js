@@ -21,6 +21,13 @@ map.on('click', onMapClick);
 function search() {
     start = geocode(document.forms["modulo"]["start"].value);
     destination = geocode(document.forms["modulo"]["destination"].value);
+
+    //add marker to map 
+    var marker1 = L.marker1([start.lat,start.lon]).addTo(map)
+    marker1.bindPopup("<b></b><br>I am a popup.").openPopup();
+
+    var marker2 = L.marker2([destination.lat, destination.lon]).addTo(map)
+    marker2.bindPopup("<b></b><br>I am a popup.").openPopup();
 }
 
 function geocode($address) {
