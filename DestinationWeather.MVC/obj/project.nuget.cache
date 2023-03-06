@@ -1,8 +1,8 @@
 {
   "version": 2,
-  "dgSpecHash": "cAqFKcZei4XCehfPYswTGKTg6+1vOpLb/xxtRuecAXQeWqC/7AXpghQ9Q42IyQkM08a2suS+dgjoazdPoRx5/Q==",
+  "dgSpecHash": "mrh6eO5xoQQjqt3n+qX2ysp8O/wrsGfN1ZQru2lHRDfM/1ancVCEIgVjEVN6UgBpTzGSpgbejZWOaCmKQcw6Uw==",
   "success": true,
-  "projectFilePath": "C:\\PROGETTI_AN\\C#\\DestinationWeather.MVC\\DestinationWeather.MVC\\DestinationWeather.MVC.csproj",
+  "projectFilePath": "/Users/antonioflorio/Projects/DestinationWeather.MVC/DestinationWeather.MVC/DestinationWeather.MVC.csproj",
   "expectedPackageFiles": [],
   "logs": []
 }
