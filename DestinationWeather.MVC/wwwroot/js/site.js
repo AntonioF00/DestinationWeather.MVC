@@ -31,7 +31,7 @@ function search() {
 const geocoder = new google.maps.Geocoder();
 
 // 2. The text address that you want to convert to coordinates
-let address = "Plaza de Bolívar de Bogotá";
+let address = "FANO";
 
 // 3. Obtain coordinates from the API
 geocoder.geocode({ address: address }, (results, status) => {
