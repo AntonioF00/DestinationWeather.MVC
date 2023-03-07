@@ -1,5 +1,9 @@
 ﻿using DestinationWeather.MVC.Models;
+using Microsoft.AspNetCore.Html;
 using Microsoft.AspNetCore.Mvc;
+using Newtonsoft.Json.Serialization;
+using Newtonsoft.Json;
+using ServiceStack;
 using System.Diagnostics;
 using System.Net.Http.Headers;
 using System.Web;
@@ -8,6 +12,9 @@ namespace DestinationWeather.MVC.Controllers
 {
     public class HomeController : Controller
     {
+
+        protected string arrayStart;
+        protected string arrayDestination;
         private readonly ILogger<HomeController> _logger;
 
         public HomeController(ILogger<HomeController> logger)
@@ -25,8 +32,7 @@ namespace DestinationWeather.MVC.Controllers
             return View();
         }
 
-        #region ExecuteJavascript
-        public async Task<Object> SearchAsync(/*[Bind("start, destination")] Data data*/ string start, string destination)
+        public async Task<Object> Search(/*[Bind("start, destination")] Data data*/ string start, string destination)
         {
             try
             {
@@ -45,12 +51,16 @@ namespace DestinationWeather.MVC.Controllers
 
                     httpClient.DefaultRequestHeaders.UserAgent.Add(productValue);
                     httpClient.DefaultRequestHeaders.UserAgent.Add(commentValue);
-                    var StartDatas = await httpClient.GetFromJsonAsync<List<ResponseData>>(StartapiUrl);            
+                    var StartDatas = await httpClient.GetFromJsonAsync<List<ResponseData>>(StartapiUrl);
                     var DestinationDatas = await httpClient.GetFromJsonAsync<List<ResponseData>>(DestinationapiUrl);
 
-                    object value = ClientScript.RegisterStartupScript(this, GetType(), "AnyValue", "sumValues(" + StartDatas + "," + DestinationDatas + ");", true);
-
-                    return new List<object>() { StartDatas, DestinationDatas};
+                    var element = new List<object>()
+                    {
+                        StartDatas,
+                        DestinationDatas
+                    };
+                   
+                    return View();
                 }
             }
             catch (Exception ex)
@@ -58,7 +68,6 @@ namespace DestinationWeather.MVC.Controllers
                 return ex.Message;
             }
         }
-        #endregion
 
         [ResponseCache(Duration = 0, Location = ResponseCacheLocation.None, NoStore = true)]
         public IActionResult Error()
