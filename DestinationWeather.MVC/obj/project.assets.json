@@ -2,6 +2,27 @@
   "version": 3,
   "targets": {
     "net6.0": {
+      "AjaxMin/5.14.5506.26202": {
+        "type": "package",
+        "compile": {
+          "lib/net40/AjaxMin.dll": {}
+        },
+        "runtime": {
+          "lib/net40/AjaxMin.dll": {}
+        }
+      },
+      "GMap.Net/1.0.1": {
+        "type": "package",
+        "dependencies": {
+          "AjaxMin": "5.14.5506.26202"
+        },
+        "compile": {
+          "lib/Gmap.net.dll": {}
+        },
+        "runtime": {
+          "lib/Gmap.net.dll": {}
+        }
+      },
       "GoogleMaps.LocationServices/1.2.0.5": {
         "type": "package",
         "compile": {
@@ -1880,6 +1901,40 @@
     }
   },
   "libraries": {
+    "AjaxMin/5.14.5506.26202": {
+      "sha512": "ayrhrlFSQEAw+1w7cdUGozbZ8BxakITQcTezeLKByp69zk0tdto8/Jt3U2ieCq3U1dlvwXGvlthMaTJXeHEaFw==",
+      "type": "package",
+      "path": "ajaxmin/5.14.5506.26202",
+      "hasTools": true,
+      "files": [
+        ".nupkg.metadata",
+        ".signature.p7s",
+        "ajaxmin.5.14.5506.26202.nupkg.sha512",
+        "ajaxmin.nuspec",
+        "lib/net20/AjaxMin.dll",
+        "lib/net35/AjaxMin.dll",
+        "lib/net40/AjaxMin.dll",
+        "tools/net35/AjaxMin.dll",
+        "tools/net35/AjaxMin.targets",
+        "tools/net35/AjaxMinTask.dll",
+        "tools/net40/AjaxMin.dll",
+        "tools/net40/AjaxMin.targets",
+        "tools/net40/AjaxMinTask.dll"
+      ]
+    },
+    "GMap.Net/1.0.1": {
+      "sha512": "gzWEuTCzVPMxUsjhhHEqJ2jPOVFolHbBEm7qNQrI3hATIgT1+91tkNKA7rBwqB0YI9eetlI0SqOtj73uDpWacw==",
+      "type": "package",
+      "path": "gmap.net/1.0.1",
+      "files": [
+        ".nupkg.metadata",
+        ".signature.p7s",
+        "gmap.net.1.0.1.nupkg.sha512",
+        "gmap.net.nuspec",
+        "lib/Gmap.net.dll",
+        "lib/Gmap.net.pdb"
+      ]
+    },
     "GoogleMaps.LocationServices/1.2.0.5": {
       "sha512": "0j3RL5+acxYgQNz72JdXJ1nUKxMGaY+6UvrOIOxZfp0qpJOUmo/ivCAm53atbnuy0z3vrZK+j9mZifh35UBqag==",
       "type": "package",
@@ -6226,6 +6281,7 @@
   },
   "projectFileDependencyGroups": {
     "net6.0": [
+      "GMap.Net >= 1.0.1",
       "GoogleMaps.LocationServices >= 1.2.0.5",
       "Nancy >= 2.0.0",
       "Newtonsoft.Json >= 13.0.2",
@@ -6280,6 +6336,10 @@
       "net6.0": {
         "targetAlias": "net6.0",
         "dependencies": {
+          "GMap.Net": {
+            "target": "Package",
+            "version": "[1.0.1, )"
+          },
           "GoogleMaps.LocationServices": {
             "target": "Package",
             "version": "[1.2.0.5, )"
@@ -6335,5 +6395,27 @@
         "runtimeIdentifierGraphPath": "C:\\Program Files\\dotnet\\sdk\\7.0.102\\RuntimeIdentifierGraph.json"
       }
     }
-  }
+  },
+  "logs": [
+    {
+      "code": "NU1701",
+      "level": "Warning",
+      "warningLevel": 1,
+      "message": "Il pacchetto 'AjaxMin 5.14.5506.26202' è stato ripristinato mediante '.NETFramework,Version=v4.6.1, .NETFramework,Version=v4.6.2, .NETFramework,Version=v4.7, .NETFramework,Version=v4.7.1, .NETFramework,Version=v4.7.2, .NETFramework,Version=v4.8, .NETFramework,Version=v4.8.1' e non mediante il framework di destinazione del progetto 'net6.0'. Questo pacchetto potrebbe non essere completamente compatibile con il progetto.",
+      "libraryId": "AjaxMin",
+      "targetGraphs": [
+        "net6.0"
+      ]
+    },
+    {
+      "code": "NU1701",
+      "level": "Warning",
+      "warningLevel": 1,
+      "message": "Il pacchetto 'GMap.Net 1.0.1' è stato ripristinato mediante '.NETFramework,Version=v4.6.1, .NETFramework,Version=v4.6.2, .NETFramework,Version=v4.7, .NETFramework,Version=v4.7.1, .NETFramework,Version=v4.7.2, .NETFramework,Version=v4.8, .NETFramework,Version=v4.8.1' e non mediante il framework di destinazione del progetto 'net6.0'. Questo pacchetto potrebbe non essere completamente compatibile con il progetto.",
+      "libraryId": "GMap.Net",
+      "targetGraphs": [
+        "net6.0"
+      ]
+    }
+  ]
 }

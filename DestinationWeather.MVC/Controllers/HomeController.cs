@@ -1,20 +1,13 @@
 ﻿using DestinationWeather.MVC.Models;
-using Microsoft.AspNetCore.Html;
 using Microsoft.AspNetCore.Mvc;
-using Newtonsoft.Json.Serialization;
-using Newtonsoft.Json;
-using ServiceStack;
 using System.Diagnostics;
 using System.Net.Http.Headers;
-using System.Web;
+using System.Xml;
 
 namespace DestinationWeather.MVC.Controllers
 {
     public class HomeController : Controller
     {
-
-        protected string arrayStart;
-        protected string arrayDestination;
         private readonly ILogger<HomeController> _logger;
 
         public HomeController(ILogger<HomeController> logger)
@@ -32,13 +25,13 @@ namespace DestinationWeather.MVC.Controllers
             return View();
         }
 
-        public async Task<Object> Search(/*[Bind("start, destination")] Data data*/ string start, string destination)
+        [HttpPost]
+        public async Task<IActionResult> Search([Bind("start,destination")] Data datas)
         {
             try
             {
-                Dictionary<string, object> res = new();
-                var StartapiUrl = $"http://nominatim.openstreetmap.org/?format=json&addressdetails=1&q={start}&format=json&limit=1";
-                var DestinationapiUrl = $"http://nominatim.openstreetmap.org/?format=json&addressdetails=1&q={destination}&format=json&limit=1";
+                var StartapiUrl = $"http://nominatim.openstreetmap.org/?format=json&addressdetails=1&q={datas.start}&format=json&limit=1";
+                var DestinationapiUrl = $"http://nominatim.openstreetmap.org/?format=json&addressdetails=1&q={datas.destination}&format=json&limit=1";
                 using (var client = new HttpClient())
                 {
                     var httpClient = new HttpClient();
@@ -54,18 +47,31 @@ namespace DestinationWeather.MVC.Controllers
                     var StartDatas = await httpClient.GetFromJsonAsync<List<ResponseData>>(StartapiUrl);
                     var DestinationDatas = await httpClient.GetFromJsonAsync<List<ResponseData>>(DestinationapiUrl);
 
-                    var element = new List<object>()
-                    {
-                        StartDatas,
-                        DestinationDatas
-                    };
-                   
-                    return View();
+                    createXml(StartDatas, DestinationDatas);
+
+                    return View("Index");
                 }
             }
             catch (Exception ex)
             {
-                return ex.Message;
+                return View(ex.Message);
+            }
+        }
+
+        private void createXml(List<ResponseData> startDatas, List<ResponseData> destinationDatas)
+        {
+            using (XmlWriter writer = XmlWriter.Create("result.xml"))
+            {
+                writer.WriteStartElement("Start");
+                writer.WriteElementString("city", startDatas[0].display_name);
+                writer.WriteElementString("lat", startDatas[0].lat.ToString());
+                writer.WriteElementString("lon",  startDatas[0].lon.ToString());
+                writer.WriteStartElement("Destination");
+                writer.WriteElementString("city", destinationDatas[0].display_name);
+                writer.WriteElementString("lat", destinationDatas[0].lat.ToString());
+                writer.WriteElementString("lon",  destinationDatas[0].lon.ToString());
+                writer.WriteEndElement();
+                writer.Flush();
             }
         }
 
