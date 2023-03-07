@@ -48,7 +48,7 @@ namespace DestinationWeather.MVC.Controllers
                     var StartDatas = await httpClient.GetFromJsonAsync<List<ResponseData>>(StartapiUrl);            
                     var DestinationDatas = await httpClient.GetFromJsonAsync<List<ResponseData>>(DestinationapiUrl);
 
-                    ClientScript.RegisterStartupScript(this, GetType(), "AnyValue", "sumValues(" + StartDatas + "," + DestinationDatas + ");", true);
+                    object value = ClientScript.RegisterStartupScript(this, GetType(), "AnyValue", "sumValues(" + StartDatas + "," + DestinationDatas + ");", true);
 
                     return new List<object>() { StartDatas, DestinationDatas};
                 }
