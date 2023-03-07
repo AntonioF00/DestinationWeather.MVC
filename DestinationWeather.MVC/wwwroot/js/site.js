@@ -30,7 +30,7 @@ function search() {
     marker2.bindPopup("<b></b><br>I am a popup.").openPopup();
 }
 
-function geocode($address) {
+async function geocode($address) {
 
     var res;
 
@@ -52,7 +52,7 @@ function geocode($address) {
 
     fetch(apiUrl, options)
         .then((response) => response.json())
-        .then((data) => res = data)
+        .then((data) => console.log(data))
         .catch((error) => console.error(error));
 
     return array(res.lat, res.lon);

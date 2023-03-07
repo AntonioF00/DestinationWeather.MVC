@@ -57,11 +57,11 @@ namespace DestinationWeather.MVC.Controllers
 
                     var request = new HttpRequestMessage(HttpMethod.Get, apiUrl);
 
-                    var productValue = new ProductInfoHeaderValue("ScraperBot", "1.0");
-                    var commentValue = new ProductInfoHeaderValue("(+http://www.API.com/ScraperBot.html)");
+                    //var productValue = new ProductInfoHeaderValue("ScraperBot", "1.0");
+                    //var commentValue = new ProductInfoHeaderValue("(+http://www.API.com/ScraperBot.html)");
 
-                    request.Headers.UserAgent.Add(productValue);
-                    request.Headers.UserAgent.Add(commentValue);
+                    //request.Headers.UserAgent.Add(productValue);
+                    //request.Headers.UserAgent.Add(commentValue);
 
                     var resp = await httpClient.SendAsync(request);
 
