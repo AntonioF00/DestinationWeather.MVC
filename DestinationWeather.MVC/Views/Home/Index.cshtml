@@ -16,7 +16,7 @@
     <form method="post" name="modulo">
         <tr><td><b>Start</b></td><td><input type="text" name="start" required></td></tr>
         <tr><td><b>Destination</b></td><td><input type="text" name="destination" required></td></tr>
-        <button type="submit" asp-area="" asp-controller="Home" asp-action="Search">Search</button>
+        <button type="submit" @*asp-area="" asp-controller="Home" asp-action="Search"*@ onclick="search()">Search</button>
     </form>
     <br />
 </div>

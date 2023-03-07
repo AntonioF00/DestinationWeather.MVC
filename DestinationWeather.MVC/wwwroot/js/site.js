@@ -32,18 +32,30 @@ function search() {
 
 function geocode($address) {
 
-    $url = "http://nominatim.openstreetmap.org/?format=json&addressdetails=1&q=" + $address +"&format=json&limit=1";
+    var res;
 
-    $resp_json = funcName($url);
+    const apiUrl = "http://nominatim.openstreetmap.org/?format=json&addressdetails=1&q=" + $address +"&format=json&limit=1";
 
-    $resp = JSON.parse($resp_json);
+    const productValue = new Headers();
+    productValue.append("User-Agent", "ScraperBot/1.0");
 
-    return array($resp.lat, $resp.lon);
+    const commentValue = new Headers();
+    commentValue.append("User-Agent", "(+http://www.API.com/ScraperBot.html)");
+
+    const options = {
+        method: "GET",
+        headers: new Headers(),
+    };
+
+    options.headers.append("User-Agent", productValue);
+    options.headers.append("User-Agent", commentValue);
+
+    fetch(apiUrl, options)
+        .then((response) => response.json())
+        .then((data) => res = data)
+        .catch((error) => console.error(error));
+
+    return array(res.lat, res.lon);
 }
 
-async function funcName(url) {
-    const response = await fetch(url);
-    var data = await response.json();
-    return data;
-}
 
