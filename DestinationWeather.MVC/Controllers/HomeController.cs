@@ -6,6 +6,8 @@ using System.Diagnostics;
 using System.Linq;
 using System.Net;
 using System.Net.Http.Headers;
+using Nancy.Json;
+using Newtonsoft.Json.Linq;
 
 namespace DestinationWeather.MVC.Controllers
 {
@@ -56,11 +58,27 @@ namespace DestinationWeather.MVC.Controllers
                     //var StartDatas = await StartResp.Content.ReadAsStringAsync();
                     //var DestinationDatas = await DestinationResp.Content.ReadAsStringAsync();
 
-                    var StartDatas = JsonConvert.DeserializeObject<Dictionary<string, string>>(await StartResp.Content.ReadAsStringAsync());
-                    var DestinationDatas = JsonConvert.DeserializeObject<Dictionary<string, string>>(await DestinationResp.Content.ReadAsStringAsync());
+                    var StartDatas = new JavaScriptSerializer().Serialize(await StartResp.Content.ReadAsStringAsync());
+                    var DestinationDatas = new JavaScriptSerializer().Serialize(await DestinationResp.Content.ReadAsStringAsync());
+
+                    dynamic StartData = JValue.Parse(StartDatas);
+                    dynamic DestinationData = JValue.Parse(DestinationDatas);
 
                     res.Add("start", data.start);
                     res.Add("destination",  data.destination);
+
+                    foreach (dynamic d in StartData)
+                    {
+                        res.Add("startLat", d.lat);
+                        res.Add("startLon", d.lon);
+                    }
+
+                    foreach (dynamic d in DestinationData)
+                    {
+                        res.Add("destinationLat", d.lat);
+                        res.Add("destinationLon", d.lon);
+                    }
+
                     return res;
                 }
             }
