@@ -8,6 +8,9 @@ using System.Net;
 using System.Net.Http.Headers;
 using Nancy.Json;
 using Newtonsoft.Json.Linq;
+using Nancy;
+using System.Reflection;
+using Nancy.Extensions;
 
 namespace DestinationWeather.MVC.Controllers
 {
@@ -58,26 +61,18 @@ namespace DestinationWeather.MVC.Controllers
                     //var StartDatas = await StartResp.Content.ReadAsStringAsync();
                     //var DestinationDatas = await DestinationResp.Content.ReadAsStringAsync();
 
-                    var StartDatas = new JavaScriptSerializer().Serialize(await StartResp.Content.ReadAsStringAsync());
-                    var DestinationDatas = new JavaScriptSerializer().Serialize(await DestinationResp.Content.ReadAsStringAsync());
+                    var StartDatas = JsonConvert.DeserializeObject<ResponseData>(await StartResp.Content.ReadAsStringAsync());
+                    var DestinationDatas = JsonConvert.DeserializeObject<ResponseData>(await DestinationResp.Content.ReadAsStringAsync());
 
-                    dynamic StartData = JValue.Parse(StartDatas);
-                    dynamic DestinationData = JValue.Parse(DestinationDatas);
+                    //var StartData = JsonConvert.DeserializeObject<Dictionary<string, string>>(StartDatas);
+                    //var DestinationData = JsonConvert.DeserializeObject<Dictionary<string, string>>(DestinationDatas);
 
                     res.Add("start", data.start);
                     res.Add("destination",  data.destination);
-
-                    foreach (dynamic d in StartData)
-                    {
-                        res.Add("startLat", d.lat);
-                        res.Add("startLon", d.lon);
-                    }
-
-                    foreach (dynamic d in DestinationData)
-                    {
-                        res.Add("destinationLat", d.lat);
-                        res.Add("destinationLon", d.lon);
-                    }
+                    //res.Add("startLat", StartData.lat);
+                    //res.Add("startLon", StartData.lon);                    
+                    //res.Add("DestinationLat", DestinationData.lat);
+                    //res.Add("DestinationLon", DestinationData.lon);
 
                     return res;
                 }
