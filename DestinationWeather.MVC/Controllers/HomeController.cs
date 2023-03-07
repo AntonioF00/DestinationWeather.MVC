@@ -11,6 +11,7 @@ using Newtonsoft.Json.Linq;
 using Nancy;
 using System.Reflection;
 using Nancy.Extensions;
+using Microsoft.JSInterop;
 
 namespace DestinationWeather.MVC.Controllers
 {
@@ -33,13 +34,14 @@ namespace DestinationWeather.MVC.Controllers
             return View();
         }
 
-        public async Task<Object> SearchAsync([Bind("start, destination")] Data data)
+        [JSInvokable]
+        public async Task<Object> SearchAsync(/*[Bind("start, destination")] Data data*/ string start, string destination)
         {
             try
             {
                 Dictionary<string, object> res = new();
-                var StartapiUrl = $"http://nominatim.openstreetmap.org/?format=json&addressdetails=1&q={data.start}&format=json&limit=1";
-                var DestinationapiUrl = $"http://nominatim.openstreetmap.org/?format=json&addressdetails=1&q={data.destination}&format=json&limit=1";
+                var StartapiUrl = $"http://nominatim.openstreetmap.org/?format=json&addressdetails=1&q={start}&format=json&limit=1";
+                var DestinationapiUrl = $"http://nominatim.openstreetmap.org/?format=json&addressdetails=1&q={destination}&format=json&limit=1";
                 using (var client = new HttpClient())
                 {
                     var httpClient = new HttpClient();
@@ -55,7 +57,7 @@ namespace DestinationWeather.MVC.Controllers
                     var StartDatas = await httpClient.GetFromJsonAsync<List<ResponseData>>(StartapiUrl);            
                     var DestinationDatas = await httpClient.GetFromJsonAsync<List<ResponseData>>(DestinationapiUrl);
 
-                    return View();
+                    return new List<object>() { StartDatas, DestinationDatas};
                 }
             }
             catch (Exception ex)
