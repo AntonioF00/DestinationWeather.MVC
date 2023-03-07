@@ -34,7 +34,7 @@ namespace DestinationWeather.MVC.Controllers
             return View();
         }
 
-        [JSInvokable]
+        #region ExecuteJavascript
         public async Task<Object> SearchAsync(/*[Bind("start, destination")] Data data*/ string start, string destination)
         {
             try
@@ -65,6 +65,7 @@ namespace DestinationWeather.MVC.Controllers
                 return ex.Message;
             }
         }
+        #endregion
 
         [ResponseCache(Duration = 0, Location = ResponseCacheLocation.None, NoStore = true)]
         public IActionResult Error()

@@ -23,9 +23,7 @@ async function search() {
     start = document.forms["modulo"]["start"].value;
     destination = document.forms["modulo"]["destination"].value;
 
-    window.sayHello2 = (res, start, destination) => {
-        return DotNet.invokeMethodAsync('DestinationWeather.MVC', 'Search', start, destination);
-    };
+    res = SearchAsync(String.Format(start), String.Format(destination));
 
     //add marker to map 
     var marker1 = L.marker1([res.StartDatas.lat, res.StartDatas.lon]).addTo(map)
