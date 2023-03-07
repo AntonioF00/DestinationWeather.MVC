@@ -19,17 +19,15 @@ function onMapClick(e) {
 
 map.on('click', onMapClick);
 
-async function search() {
+async function search(a, b) {
     start = document.forms["modulo"]["start"].value;
     destination = document.forms["modulo"]["destination"].value;
 
-    res = SearchAsync(String.Format(start), String.Format(destination));
-
     //add marker to map 
-    var marker1 = L.marker1([res.StartDatas.lat, res.StartDatas.lon]).addTo(map)
+    var marker1 = L.marker1([a.lat, a.lon]).addTo(map)
     marker1.bindPopup("<b></b><br>I am a popup.").openPopup();
 
-    var marker2 = L.marker2([res.DestinationDatas.lat, res.DestinationDatas.lon]).addTo(map)
+    var marker2 = L.marker2([b.lat, b.lon]).addTo(map)
     marker2.bindPopup("<b></b><br>I am a popup.").openPopup();
 }
 

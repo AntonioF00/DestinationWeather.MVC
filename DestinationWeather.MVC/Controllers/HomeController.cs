@@ -1,17 +1,8 @@
 ﻿using DestinationWeather.MVC.Models;
-using GoogleMaps.LocationServices;
 using Microsoft.AspNetCore.Mvc;
-using Newtonsoft.Json;
 using System.Diagnostics;
-using System.Linq;
-using System.Net;
 using System.Net.Http.Headers;
-using Nancy.Json;
-using Newtonsoft.Json.Linq;
-using Nancy;
-using System.Reflection;
-using Nancy.Extensions;
-using Microsoft.JSInterop;
+using System.Web;
 
 namespace DestinationWeather.MVC.Controllers
 {
@@ -56,6 +47,8 @@ namespace DestinationWeather.MVC.Controllers
                     httpClient.DefaultRequestHeaders.UserAgent.Add(commentValue);
                     var StartDatas = await httpClient.GetFromJsonAsync<List<ResponseData>>(StartapiUrl);            
                     var DestinationDatas = await httpClient.GetFromJsonAsync<List<ResponseData>>(DestinationapiUrl);
+
+                    ClientScript.RegisterStartupScript(this, GetType(), "AnyValue", "sumValues(" + StartDatas + "," + DestinationDatas + ");", true);
 
                     return new List<object>() { StartDatas, DestinationDatas};
                 }

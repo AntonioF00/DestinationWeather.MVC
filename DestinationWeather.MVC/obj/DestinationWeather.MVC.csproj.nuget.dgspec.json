@@ -57,9 +57,25 @@
               "target": "Package",
               "version": "[13.0.2, )"
             },
+            "ServiceStack.Common": {
+              "target": "Package",
+              "version": "[6.6.0, )"
+            },
+            "System.Composition": {
+              "target": "Package",
+              "version": "[7.0.0, )"
+            },
             "System.Net.Http": {
               "target": "Package",
               "version": "[4.3.4, )"
+            },
+            "Xamarin.Essentials": {
+              "target": "Package",
+              "version": "[1.7.5, )"
+            },
+            "Xamarin.Google.iOS.Maps": {
+              "target": "Package",
+              "version": "[6.0.1.1, )"
             }
           },
           "imports": [
