@@ -50,31 +50,12 @@ namespace DestinationWeather.MVC.Controllers
                     var productValue = new ProductInfoHeaderValue("ScraperBot", "1.0");
                     var commentValue = new ProductInfoHeaderValue("(+http://www.API.com/ScraperBot.html)");
 
-                    StartRequest.Headers.UserAgent.Add(productValue);
-                    StartRequest.Headers.UserAgent.Add(commentValue);
-                    DestinationRequest.Headers.UserAgent.Add(productValue);
-                    DestinationRequest.Headers.UserAgent.Add(commentValue);
+                    httpClient.DefaultRequestHeaders.UserAgent.Add(productValue);
+                    httpClient.DefaultRequestHeaders.UserAgent.Add(commentValue);
+                    var StartDatas = await httpClient.GetFromJsonAsync<List<ResponseData>>(StartapiUrl);            
+                    var DestinationDatas = await httpClient.GetFromJsonAsync<List<ResponseData>>(DestinationapiUrl);
 
-                    var StartResp = await httpClient.SendAsync(StartRequest);
-                    var DestinationResp = await httpClient.SendAsync(DestinationRequest);
-
-                    //var StartDatas = await StartResp.Content.ReadAsStringAsync();
-                    //var DestinationDatas = await DestinationResp.Content.ReadAsStringAsync();
-
-                    var StartDatas = JsonConvert.DeserializeObject<ResponseData>(await StartResp.Content.ReadAsStringAsync());
-                    var DestinationDatas = JsonConvert.DeserializeObject<ResponseData>(await DestinationResp.Content.ReadAsStringAsync());
-
-                    //var StartData = JsonConvert.DeserializeObject<Dictionary<string, string>>(StartDatas);
-                    //var DestinationData = JsonConvert.DeserializeObject<Dictionary<string, string>>(DestinationDatas);
-
-                    res.Add("start", data.start);
-                    res.Add("destination",  data.destination);
-                    //res.Add("startLat", StartData.lat);
-                    //res.Add("startLon", StartData.lon);                    
-                    //res.Add("DestinationLat", DestinationData.lat);
-                    //res.Add("DestinationLon", DestinationData.lon);
-
-                    return res;
+                    return View();
                 }
             }
             catch (Exception ex)

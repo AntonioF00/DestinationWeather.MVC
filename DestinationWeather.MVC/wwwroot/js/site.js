@@ -30,32 +30,5 @@ function search() {
     marker2.bindPopup("<b></b><br>I am a popup.").openPopup();
 }
 
-async function geocode($address) {
-
-    var res;
-
-    const apiUrl = "http://nominatim.openstreetmap.org/?format=json&addressdetails=1&q=" + $address +"&format=json&limit=1";
-
-    const productValue = new Headers();
-    productValue.append("User-Agent", "ScraperBot/1.0");
-
-    const commentValue = new Headers();
-    commentValue.append("User-Agent", "(+http://www.API.com/ScraperBot.html)");
-
-    const options = {
-        method: "GET",
-        headers: new Headers(),
-    };
-
-    options.headers.append("User-Agent", productValue);
-    options.headers.append("User-Agent", commentValue);
-
-    fetch(apiUrl, options)
-        .then((response) => response.json())
-        .then((data) => console.log(data))
-        .catch((error) => console.error(error));
-
-    return array(res.lat, res.lon);
-}
 
 
