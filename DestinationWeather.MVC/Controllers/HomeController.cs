@@ -59,12 +59,17 @@ namespace DestinationWeather.MVC.Controllers
 
                     createXml(StartDatas, DestinationDatas, StartCityAverages, DestinationCityAverages);
 
-                    return View("Index");
+                    return View("Index",new MapData(){
+                                                StartDatas = StartDatas,
+                                                DestinationDatas = DestinationDatas,
+                                                StartCityAverages = StartCityAverages,
+                                                DestinationCityAverages = DestinationCityAverages
+                                             });
                 }
             }
             catch (Exception ex)
             {
-                return View(ex.Message);
+                return View("index");
             }
         }
 
