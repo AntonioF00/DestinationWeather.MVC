@@ -39,7 +39,7 @@ Please make sure to update tests as appropriate.
 ## License
 
 [MITLicense](https://choosealicense.com/licenses/mit/)
-Copyright (c) 2023 [hypertension_bot](https://github.com/AntonioF00/hypertension_bot)
+Copyright (c) 2023 
 
 Permission is hereby granted, free of charge, to any person obtaining a copy
 of this software and associated documentation files (the "Software"), to deal
