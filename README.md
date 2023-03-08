@@ -2,7 +2,7 @@
 This is a project for a Reti di calcolatori's exam.
 
 ## Description
-This is a project developed using ASP.Net Moldes Views Controllers, the purpose is to manage a university dashboard that is in exam period. Students can view the exams and dates associated with them and the professors have the ability to create exams, edit them, delete them, view them and view the student list.
+This is a project developed using ASP.Net Moldes Views Controllers, the purpose of the project is to allow the user, following the insertion of the starting point and the arrival point of a hypothetical section, where these points are on the map and the weather of the chosen points. To develop this I used the openStreetMap API for creating the map and the markers and the openWeather API for obtaining the weather forecast for the chosen point.
 
 ## Installation
 ### Windows 8/10/11 and MacOS
