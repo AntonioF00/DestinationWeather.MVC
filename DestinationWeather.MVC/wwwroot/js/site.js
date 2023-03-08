@@ -7,9 +7,9 @@
 //}).addTo(map);
 
 function onMapClick(e) {
-    //var marker = L.marker(e.latlng).addTo(map)
-    //marker.bindPopup("<b>" + e.location + "</b><br>I am a popup.").openPopup();
-    //markers.push(marker);
+    var marker = L.marker(e.latlng).addTo(map)
+    marker.bindPopup("<b>" + e.location + "</b><br>I am a popup.").openPopup();
+    markers.push(marker);
 }
 
 map.on('click', onMapClick);

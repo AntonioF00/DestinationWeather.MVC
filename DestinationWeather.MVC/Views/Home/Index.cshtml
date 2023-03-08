@@ -36,19 +36,19 @@
 </script>
 
 
-@if (Model != null )
+@if (Model != null)
 {
     <code>
         <script>
             var lat = @Model.StartDatas[0].lat.ToString().Substring(0,4).Replace(",",".");
             var lon = @Model.StartDatas[0].lon.ToString().Substring(0,4).Replace(",",".");
             var marker1 = L.marker([lat, lon]).addTo(map)
-            marker.bindPopup("<b>"+@Model.StartDatas[0].display_name+"</b><br>Weather:").openPopup();
+            marker1.bindPopup("<b>@Model.StartDatas[0].display_name.ToString()</b><br>Weather:<br>@Model.StartCityAverages[0].Day.ToString("MM/dd/yyyy") | @Model.StartCityAverages[0].AveTemp.ToString("##0.00")°F").openPopup();
 
             lat = @Model.DestinationDatas[0].lat.ToString().Substring(0,4).Replace(",",".");
             lon = @Model.DestinationDatas[0].lon.ToString().Substring(0,4).Replace(",",".");
             var marker2 = L.marker([lat, lon]).addTo(map)
-            marker.bindPopup("<b>"+@Model.DestinationDatas[0].display_name+"</b><br>Weather:").openPopup();
+            marker2.bindPopup("<b>@Model.DestinationDatas[0].display_name.ToString()</b><br>Weather:<br>@Model.DestinationCityAverages[0].Day.ToString("MM/dd/yyyy") | @Model.DestinationCityAverages[0].AveTemp.ToString("##0.00")°F").openPopup();
         </script>
     </code>
 }
