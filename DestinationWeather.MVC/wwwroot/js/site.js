@@ -1,5 +1,4 @@
-﻿var marker1;
-var marker2;
+﻿
 //var map = L.map('map').setView([41.29, 12.27], 5);
 
 //L.tileLayer('https://tile.openstreetmap.org/{z}/{x}/{y}.png', {
@@ -7,13 +6,13 @@ var marker2;
 //    attribution: '&copy; <a href="http://www.openstreetmap.org/copyright">OpenStreetMap</a>'
 //}).addTo(map);
 
-//function onMapClick(e) {
-//    var marker = L.marker(e.latlng).addTo(map)
-//    marker.bindPopup("<b>" + e.location + "</b><br>I am a popup.").openPopup();
-//    markers.push(marker);
-//}
+function onMapClick(e) {
+    var marker = L.marker(e.latlng).addTo(map)
+    marker.bindPopup("<b>" + e.location + "</b><br>I am a popup.").openPopup();
+    markers.push(marker);
+}
 
-//map.on('click', onMapClick);
+map.on('click', onMapClick);
 
 
 //function search() {

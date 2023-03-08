@@ -26,41 +26,25 @@
 
  <div id="map"></div>
 
+<script>
+    var map = L.map('map').setView([41.29, 12.27], 5);
 
-
-@if (Model != null)
-{
-    <script>
-        var map = L.map('map').setView([41.29, 12.27], 5);
-
-        L.tileLayer('https://tile.openstreetmap.org/{z}/{x}/{y}.png', {
+    L.tileLayer('https://tile.openstreetmap.org/{z}/{x}/{y}.png', {
         maxZoom: 19,
         attribution: '&copy; <a href="http://www.openstreetmap.org/copyright">OpenStreetMap</a>'
-        }).addTo(map);
+    }).addTo(map);
+</script>
 
-        var marker1 = L.marker1([<code>@Model.StartDatas[0].lat</code>, <code>@Model.StartDatas[0].lon</code>]).addTo(map)
-        marker1.bindPopup("<b></b><br>I am a popup.").openPopup();
 
-        var marker2 = L.marker2([<code>@Model.DestinationDatas[0].lat</code>, <code>@Model.DestinationDatas[0].lon</code>]).addTo(map)
-        marker2.bindPopup("<b></b><br>I am a popup.").openPopup();
-    </script>
-}
-@if(Model == null)
+@if (Model != null )
 {
+    <code>
         <script>
-        var map = L.map('map').setView([41.29, 12.27], 5);
+            var marker1 = L.marker1([<code>@Model.StartDatas[0].lat</code>,<code>@Model.StartDatas[0].lon</code>]).addTo(map)
+            marker1.bindPopup("<b></b><br>I am a popup.").openPopup();
 
-        L.tileLayer('https://tile.openstreetmap.org/{z}/{x}/{y}.png', {
-            maxZoom: 19,
-            attribution: '&copy; <a href="http://www.openstreetmap.org/copyright">OpenStreetMap</a>'
-        }).addTo(map);
-
-        function onMapClick(e) {
-            var marker = L.marker(e.latlng).addTo(map)
-            marker.bindPopup("<b>" + e.location + "</b><br>I am a popup.").openPopup();
-            markers.push(marker);
-        }
-
-        map.on('click', onMapClick);
+            var marker2 = L.marker2([<code>@Model.DestinationDatas[0].lat</code>,<code>@Model.DestinationDatas[0].lon</code>]).addTo(map)
+            marker2.bindPopup("<b></b><br>I am a popup.").openPopup();
         </script>
+    </code>
 }
