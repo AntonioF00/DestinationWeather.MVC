@@ -119,24 +119,31 @@ namespace DestinationWeather.MVC.Controllers
         {
             using (XmlWriter writer = XmlWriter.Create("result.xml"))
             {
+                writer.WriteStartElement("Response");
                 writer.WriteStartElement("Start");
                 writer.WriteElementString("city", startDatas[0].display_name);
                 writer.WriteElementString("lat",  startDatas[0].lat.ToString());
                 writer.WriteElementString("lon",  startDatas[0].lon.ToString());
+                writer.WriteStartElement("Temp");
                 foreach (var ave in StartCityAverages)
                 {
                     var rain = ave.Precipitation == true ? "*" : " ";
-                    writer.WriteElementString("temp",$"{ave.Day.ToString("MM/dd/yyyy")}{rain} \t {ave.AveTemp.ToString("##0.00")}°");
+                    writer.WriteElementString($"temp{StartCityAverages.IndexOf(ave)}",$"{ave.Day.ToString("MM/dd/yyyy")}{rain} \t {ave.AveTemp.ToString("##0.00")}°");
                 }
+                writer.WriteEndElement();
+                writer.WriteEndElement();
                 writer.WriteStartElement("Destination");
                 writer.WriteElementString("city", destinationDatas[0].display_name);
                 writer.WriteElementString("lat", destinationDatas[0].lat.ToString());
                 writer.WriteElementString("lon",  destinationDatas[0].lon.ToString());
+                writer.WriteStartElement("Temp");
                 foreach (var ave in DestinationCityAverages)
                 {
                     var rain = ave.Precipitation == true ? "*" : " ";
-                    writer.WriteElementString("temp", $"{ave.Day.ToString("MM/dd/yyyy")}{rain} \t {ave.AveTemp.ToString("##0.00")}°");
+                    writer.WriteElementString($"temp{DestinationCityAverages.IndexOf(ave)}", $"{ave.Day.ToString("MM/dd/yyyy")}{rain} \t {ave.AveTemp.ToString("##0.00")}°");
                 }
+                writer.WriteEndElement();
+                writer.WriteEndElement();
                 writer.WriteEndElement();
                 writer.Flush();
             }
