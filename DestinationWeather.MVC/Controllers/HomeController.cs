@@ -30,14 +30,6 @@ namespace DestinationWeather.MVC.Controllers
             return View();
         }
 
-        public static void callPointInfo(string s) {
-            //HomeController controller = new HomeController();
-
-            //controllerPointInfo(s);
-        }
-
-
-        [HttpPost]
         public async Task<IActionResult> PointInfo(string latlong)
         {
             var coord = latlong.Split(',');
@@ -48,10 +40,10 @@ namespace DestinationWeather.MVC.Controllers
             var CityAverages = ProcessCityData(City);
 
             return View("Index", new PointData()
-                                                {
-                                                    City = City,
-                                                    CityAverages = CityAverages
-                                                });
+            {
+                City = City,
+                CityAverages = CityAverages
+            });
         }
 
 
