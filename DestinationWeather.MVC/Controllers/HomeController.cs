@@ -1,6 +1,7 @@
 ﻿using DestinationWeather.MVC.Models;
 using Microsoft.AspNetCore.Mvc;
 using Newtonsoft.Json;
+using ServiceStack.Text;
 using System.Diagnostics;
 using System.Net.Http.Headers;
 using System.Xml;
@@ -52,12 +53,15 @@ namespace DestinationWeather.MVC.Controllers
 
                     location startCity = new location() {  CityName = datas.start};
                     location DestinationCity = new location() {  CityName = datas.destination};
+
                     startCity.WeatherInfo = GetWeatherInfo(startCity).Result;
                     DestinationCity.WeatherInfo = GetWeatherInfo(DestinationCity).Result;
                     var StartCityAverages = ProcessCityData(startCity);
                     var DestinationCityAverages = ProcessCityData(DestinationCity);
 
                     createXml(StartDatas, DestinationDatas, StartCityAverages, DestinationCityAverages);
+
+                    await GetStreetAddressForCoordinates(StartDatas[0].lat, StartDatas[0].lon);
 
                     return View("Index",new MapData(){
                                                 StartDatas = StartDatas,
@@ -90,14 +94,12 @@ namespace DestinationWeather.MVC.Controllers
             return weather;
         }
 
-        // returns the OpenWeatherMap Api Key
         private static string GetApiKey()
         {
             string openWeatherKey = "9525a467ef22974bc25346d4bc02de69";
             return openWeatherKey;
         }
 
-        // returns the OpenWeatherMap Url
         private static string GetUrl(string city, string state, string country, string apiKey)
         {
             var openWeatherUrl = $"http://api.openweathermap.org/data/2.5/forecast?q={city},{state},{country}&appid={apiKey}&units=imperial";
@@ -118,6 +120,26 @@ namespace DestinationWeather.MVC.Controllers
                                             })
                                             .ToList();
             return averages;
+        }
+
+        public static async Task<string> GetStreetAddressForCoordinates(double latitude, double longitude)
+        {
+            HttpClient httpClient = new HttpClient();
+            httpClient.BaseAddress = new Uri("http://nominatim.openstreetmap.org");
+
+            var productValue = new ProductInfoHeaderValue("ScraperBot", "1.0");
+            var commentValue = new ProductInfoHeaderValue("(+http://www.API.com/ScraperBot.html)");
+
+            httpClient.DefaultRequestHeaders.UserAgent.Add(productValue);
+            httpClient.DefaultRequestHeaders.UserAgent.Add(commentValue);
+
+            HttpResponseMessage httpResult = await httpClient.GetAsync(String.Format($"reverse?format=json&lat={latitude.ToString().Replace(',','.')}&lon={longitude.ToString().Replace(',', '.')}"));
+
+            JsonObject jsonObject = JsonObject.Parse(await httpResult.Content.ReadAsStringAsync());
+
+            var res = jsonObject.ToDictionary()["address"].Split(',')[3].Remove(0,5);
+
+            return res;
         }
 
         private void createXml(List<ResponseData> startDatas, List<ResponseData> destinationDatas,List<DayAverages> StartCityAverages, List<DayAverages> DestinationCityAverages)
