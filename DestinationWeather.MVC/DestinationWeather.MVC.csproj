@@ -10,6 +10,10 @@
     <None Remove="GoogleMaps.LocationServices" />
     <None Remove="System.Net.Http" />
   </ItemGroup>
+
+  <ItemGroup>
+    <None Include="..\.editorconfig" Link=".editorconfig" />
+  </ItemGroup>
   <ItemGroup>
     <PackageReference Include="GMap.Net" Version="1.0.1" />
     <PackageReference Include="GoogleMaps.LocationServices" Version="1.2.0.5" />
