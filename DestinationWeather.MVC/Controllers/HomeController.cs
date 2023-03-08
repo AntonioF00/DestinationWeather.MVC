@@ -53,7 +53,7 @@ namespace DestinationWeather.MVC.Controllers
                     location startCity = new location() {  CityName = datas.start};
                     location DestinationCity = new location() {  CityName = datas.destination};
                     startCity.WeatherInfo = GetWeatherInfo(startCity).Result;
-                    DestinationCity.WeatherInfo = GetWeatherInfo(startCity).Result;
+                    DestinationCity.WeatherInfo = GetWeatherInfo(DestinationCity).Result;
                     var StartCityAverages = ProcessCityData(startCity);
                     var DestinationCityAverages = ProcessCityData(DestinationCity);
 
