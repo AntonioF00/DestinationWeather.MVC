@@ -31,7 +31,9 @@ namespace DestinationWeather.MVC.Controllers
         }
 
         public static void callPointInfo(string s) {
-            _ = PointInfo(s);
+            //HomeController controller = new HomeController();
+
+            //controllerPointInfo(s);
         }
 
 
