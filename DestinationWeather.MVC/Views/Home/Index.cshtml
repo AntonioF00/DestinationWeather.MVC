@@ -11,14 +11,14 @@
 
 
 <div class="text-center">
-    <h1 class="display-4">Welcome</h1>
+    <h1 class="display-4">DestinationWeather.MVC</h1>
     <p>Choose your destination!.</p>
 </div>
 
 <div class="text-center">
     <form method="post" name="modulo">
-        <tr><td><b>Start</b></td><td><input type="text" name="start" required></td></tr>
-        <tr><td><b>Destination</b></td><td><input type="text" name="destination" required></td></tr>
+        <tr><td><b>Start: </b></td><td><input type="text" name="start" required></td></tr>
+        <tr><td><b>Destination: </b></td><td><input type="text" name="destination" required></td></tr>
         <button type="submit" asp-area="" asp-controller="Home" asp-action="Search">Search</button>
     </form>
     <br />
@@ -35,9 +35,9 @@
     }).addTo(map);
 
     function onMapClick(e) {
-    var marker = L.marker(e.latlng).addTo(map)
-    marker.bindPopup("<b>" + e.location + "</b><br>").openPopup();
-    markers.push(marker);
+        var marker = L.marker(e.latlng).addTo(map)
+        marker.bindPopup("<b>" + e.location + "</b><br>").openPopup();
+        markers.push(marker);
     }
 
     map.on('click', onMapClick);
