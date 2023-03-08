@@ -29,9 +29,6 @@ Windows 8/10/11:
 winget install Microsoft.DotNet.DesktopRuntime.7
 ```
 
-#### Install latest version of PostgreSQL
-[Download link](https://www.postgresql.org/download/)
-
 ## Contributing
 
 Pull requests are welcome. For major changes, please open an issue first
