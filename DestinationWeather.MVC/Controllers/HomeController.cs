@@ -49,7 +49,6 @@ namespace DestinationWeather.MVC.Controllers
                     var StartDatas = await httpClient.GetFromJsonAsync<List<ResponseData>>(StartapiUrl);
                     var DestinationDatas = await httpClient.GetFromJsonAsync<List<ResponseData>>(DestinationapiUrl);
 
-                    createXml(StartDatas, DestinationDatas);
 
                     location startCity = new location() {  CityName = datas.start};
                     location DestinationCity = new location() {  CityName = datas.destination};
@@ -57,8 +56,8 @@ namespace DestinationWeather.MVC.Controllers
                     DestinationCity.WeatherInfo = GetWeatherInfo(startCity).Result;
                     var StartCityAverages = ProcessCityData(startCity);
                     var DestinationCityAverages = ProcessCityData(DestinationCity);
-                    PrintCityAverages(startCity, StartCityAverages);
-                    PrintCityAverages(DestinationCity, DestinationCityAverages);
+
+                    createXml(StartDatas, DestinationDatas, StartCityAverages, DestinationCityAverages);
 
                     return View("Index");
                 }
@@ -116,34 +115,28 @@ namespace DestinationWeather.MVC.Controllers
             return averages;
         }
 
-        public static void PrintCityAverages(location city, List<DayAverages> CityAverages)
-        {
-            Console.WriteLine("________________________________");
-            Console.WriteLine($"{city.CityName}, {city.StateAbbrev}, {city.CountryCode}");
-            Console.WriteLine("");
-            Console.WriteLine($"Date \t\t Avg Temp (F)");
-            Console.WriteLine("--------------------------------");
-            foreach (var ave in CityAverages)
-            {
-                var rain = ave.Precipitation == true ? "*" : " ";
-                Console.WriteLine($"{ave.Day.ToString("MM/dd/yyyy")}{rain} \t {ave.AveTemp.ToString("##0.00")}°");
-            }
-            Console.WriteLine("________________________________");
-            Console.WriteLine("");
-        }
-
-        private void createXml(List<ResponseData> startDatas, List<ResponseData> destinationDatas)
+        private void createXml(List<ResponseData> startDatas, List<ResponseData> destinationDatas,List<DayAverages> StartCityAverages, List<DayAverages> DestinationCityAverages)
         {
             using (XmlWriter writer = XmlWriter.Create("result.xml"))
             {
                 writer.WriteStartElement("Start");
                 writer.WriteElementString("city", startDatas[0].display_name);
-                writer.WriteElementString("lat", startDatas[0].lat.ToString());
+                writer.WriteElementString("lat",  startDatas[0].lat.ToString());
                 writer.WriteElementString("lon",  startDatas[0].lon.ToString());
+                foreach (var ave in StartCityAverages)
+                {
+                    var rain = ave.Precipitation == true ? "*" : " ";
+                    writer.WriteElementString("temp",$"{ave.Day.ToString("MM/dd/yyyy")}{rain} \t {ave.AveTemp.ToString("##0.00")}°");
+                }
                 writer.WriteStartElement("Destination");
                 writer.WriteElementString("city", destinationDatas[0].display_name);
                 writer.WriteElementString("lat", destinationDatas[0].lat.ToString());
                 writer.WriteElementString("lon",  destinationDatas[0].lon.ToString());
+                foreach (var ave in DestinationCityAverages)
+                {
+                    var rain = ave.Precipitation == true ? "*" : " ";
+                    writer.WriteElementString("temp", $"{ave.Day.ToString("MM/dd/yyyy")}{rain} \t {ave.AveTemp.ToString("##0.00")}°");
+                }
                 writer.WriteEndElement();
                 writer.Flush();
             }
