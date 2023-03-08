@@ -57,6 +57,8 @@ namespace DestinationWeather.MVC.Controllers
                     DestinationCity.WeatherInfo = GetWeatherInfo(startCity).Result;
                     var StartCityAverages = ProcessCityData(startCity);
                     var DestinationCityAverages = ProcessCityData(DestinationCity);
+                    PrintCityAverages(startCity, StartCityAverages);
+                    PrintCityAverages(DestinationCity, DestinationCityAverages);
 
                     return View("Index");
                 }
@@ -114,6 +116,21 @@ namespace DestinationWeather.MVC.Controllers
             return averages;
         }
 
+        public static void PrintCityAverages(location city, List<DayAverages> CityAverages)
+        {
+            Console.WriteLine("________________________________");
+            Console.WriteLine($"{city.CityName}, {city.StateAbbrev}, {city.CountryCode}");
+            Console.WriteLine("");
+            Console.WriteLine($"Date \t\t Avg Temp (F)");
+            Console.WriteLine("--------------------------------");
+            foreach (var ave in CityAverages)
+            {
+                var rain = ave.Precipitation == true ? "*" : " ";
+                Console.WriteLine($"{ave.Day.ToString("MM/dd/yyyy")}{rain} \t {ave.AveTemp.ToString("##0.00")}°");
+            }
+            Console.WriteLine("________________________________");
+            Console.WriteLine("");
+        }
 
         private void createXml(List<ResponseData> startDatas, List<ResponseData> destinationDatas)
         {
