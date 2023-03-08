@@ -1,8 +1,10 @@
 ﻿using DestinationWeather.MVC.Models;
 using Microsoft.AspNetCore.Mvc;
+using Newtonsoft.Json;
 using System.Diagnostics;
 using System.Net.Http.Headers;
 using System.Xml;
+using static DestinationWeather.MVC.Models.WeatherData;
 
 namespace DestinationWeather.MVC.Controllers
 {
@@ -49,6 +51,13 @@ namespace DestinationWeather.MVC.Controllers
 
                     createXml(StartDatas, DestinationDatas);
 
+                    location startCity = new location() {  CityName = datas.start};
+                    location DestinationCity = new location() {  CityName = datas.destination};
+                    startCity.WeatherInfo = GetWeatherInfo(startCity).Result;
+                    DestinationCity.WeatherInfo = GetWeatherInfo(startCity).Result;
+                    var StartCityAverages = ProcessCityData(startCity);
+                    var DestinationCityAverages = ProcessCityData(DestinationCity);
+
                     return View("Index");
                 }
             }
@@ -57,6 +66,54 @@ namespace DestinationWeather.MVC.Controllers
                 return View(ex.Message);
             }
         }
+
+        public static async Task<OpenWeatherAPIObject> GetWeatherInfo(location city)
+        {
+            OpenWeatherAPIObject weather = new OpenWeatherAPIObject();
+            string openWeatherKey = GetApiKey();
+            string byCity = GetUrl(city.CityName, city.StateAbbrev, city.CountryCode, openWeatherKey);
+
+            using (HttpClient client = new HttpClient())
+            using (HttpResponseMessage response = await client.GetAsync(byCity))
+            using (HttpContent content = response.Content)
+            {
+                var cityData = await content.ReadAsStringAsync();
+                weather = JsonConvert.DeserializeObject<OpenWeatherAPIObject>(cityData);
+            }
+
+            return weather;
+        }
+
+        // returns the OpenWeatherMap Api Key
+        private static string GetApiKey()
+        {
+            string openWeatherKey = "9525a467ef22974bc25346d4bc02de69";
+            return openWeatherKey;
+        }
+
+        // returns the OpenWeatherMap Url
+        private static string GetUrl(string city, string state, string country, string apiKey)
+        {
+            var openWeatherUrl = $"http://api.openweathermap.org/data/2.5/forecast?q={city},{state},{country}&appid={apiKey}&units=imperial";
+            return openWeatherUrl;
+        }
+
+        public static List<DayAverages> ProcessCityData(location city)
+        {
+            List<DayAverages> averages = new List<DayAverages>();
+            averages = city.WeatherInfo.list.Where(x => x.dt_txt.Date != DateTime.Now.Date)
+                                            .OrderBy(x => x.dt_txt.Date)
+                                            .GroupBy(x => x.dt_txt.Date)
+                                            .Select(x => new DayAverages()
+                                            {
+                                                Day = x.Key,
+                                                AveTemp = Math.Round(x.Average(y => y.main.average_temp), 2),
+                                                Precipitation = x.Any(y => y.rain != null && y.rain.RainAmount > 0)
+                                            })
+                                            .ToList();
+            return averages;
+        }
+
 
         private void createXml(List<ResponseData> startDatas, List<ResponseData> destinationDatas)
         {

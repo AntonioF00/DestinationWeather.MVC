@@ -16,16 +16,16 @@ function onMapClick(e) {
 map.on('click', onMapClick);
 
 
-function search() {
+//function search() {
 
-    //var start = document.forms["modulo"]["start"].value;
-    //var destination = document.forms["modulo"]["destination"].value;
+//    var start = document.forms["modulo"]["start"].value;
+//    var destination = document.forms["modulo"]["destination"].value;
 
-    var marker1 = L.marker1([data.StartData.lat, data.StartData.lon]).addTo(map)
-    marker1.bindPopup("<b></b><br>I am a popup.").openPopup();
+//    var marker1 = L.marker1([data.StartData.lat, data.StartData.lon]).addTo(map)
+//    marker1.bindPopup("<b></b><br>I am a popup.").openPopup();
 
-    var marker2 = L.marker2([data.DestinationData.lat, data.DestinationData.lon]).addTo(map)
-    marker2.bindPopup("<b></b><br>I am a popup.").openPopup();
-}
+//    var marker2 = L.marker2([data.DestinationData.lat, data.DestinationData.lon]).addTo(map)
+//    marker2.bindPopup("<b></b><br>I am a popup.").openPopup();
+//}
 
 
