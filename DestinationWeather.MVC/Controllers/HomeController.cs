@@ -45,6 +45,8 @@ namespace DestinationWeather.MVC.Controllers
                 CityAverages = CityAverages
             };
 
+            createPointXml(point);
+
             return point;
         }
 
@@ -194,6 +196,26 @@ namespace DestinationWeather.MVC.Controllers
                 writer.Flush();
             }
         }
+
+        private static void createPointXml(PointData data)
+        {
+            using (XmlWriter writer = XmlWriter.Create("Pointresult.xml"))
+            {
+                writer.WriteStartElement("Response");
+                writer.WriteStartElement("City");
+                writer.WriteElementString("city", data.City.CityName);
+                writer.WriteStartElement("Temp");
+                foreach (var ave in data.CityAverages)
+                {
+                    var rain = ave.Precipitation == true ? "*" : " ";
+                    writer.WriteElementString($"temp{data.CityAverages.IndexOf(ave)}", $"{ave.Day.ToString("MM/dd/yyyy")}{rain} \t {ave.AveTemp.ToString("##0.00")}°");
+                }
+                writer.WriteEndElement();
+                writer.WriteEndElement();
+                writer.Flush();
+            }
+        }
+
 
         [ResponseCache(Duration = 0, Location = ResponseCacheLocation.None, NoStore = true)]
         public IActionResult Error()
