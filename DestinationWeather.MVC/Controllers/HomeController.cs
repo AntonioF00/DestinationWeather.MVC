@@ -30,20 +30,22 @@ namespace DestinationWeather.MVC.Controllers
             return View();
         }
 
-        public async Task<IActionResult> PointInfo(string latlong)
+        public static async Task<PointData> PointInfo(string latlong)
         {
             var coord = latlong.Split(',');
-            string nameCity = await GetStreetAddressForCoordinates(Double.Parse(coord[0]), Double.Parse(coord[1]));
+            string nameCity = await GetStreetAddressForCoordinates(Double.Parse(coord[0].ToString().Replace('.',',')), Double.Parse(coord[1].ToString().Replace('.', ',')));
             location City = new location() { CityName = nameCity };
 
             City.WeatherInfo = GetWeatherInfo(City).Result;
             var CityAverages = ProcessCityData(City);
 
-            return View("Index", new PointData()
+            var point = new PointData()
             {
                 City = City,
                 CityAverages = CityAverages
-            });
+            };
+
+            return point;
         }
 
 
@@ -79,7 +81,6 @@ namespace DestinationWeather.MVC.Controllers
                     var DestinationCityAverages = ProcessCityData(DestinationCity);
 
                     createXml(StartDatas, DestinationDatas, StartCityAverages, DestinationCityAverages);
-
 
                     return View("Index",new MapData(){
                                                 StartDatas = StartDatas,
