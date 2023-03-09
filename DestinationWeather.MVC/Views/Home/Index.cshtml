@@ -1,5 +1,7 @@
 ﻿@using DestinationWeather.MVC.Models
 @using DestinationWeather.MVC.Controllers
+@using Microsoft.JSInterop;
+@inject IJSRuntime JSRuntime
 @using static DestinationWeather.MVC.Models.WeatherData;
 @model MapData
 
@@ -11,6 +13,8 @@
      integrity="sha256-WBkoXOwTeyKclOHuWtc+i2uENFpDZ9YPdf5Hf+D7ewM="
      crossorigin=""></script>
 <script type="text/javascript" src="http://maps.google.com/maps/api/js?sensor=false"></script>
+
+<script src="_content/BrowserInterop/scripts.js"></script>
 
 
 <div class="text-center">
@@ -37,20 +41,22 @@
             maxZoom: 19,
             attribution: '&copy; <a href="http://www.openstreetmap.org/copyright">OpenStreetMap</a>'
         }).addTo(map);
+
+        function onMapClick(e) {
+                //var point = JSRuntime.Current.InvokeAsync<object>("PointInfo", e.latlng); ?? PROVA 1
+                //var point = DotNet.invokeMethodAsync('HomeController', 'PointInfo', e.latlng); ?? PROVA 2
+                var marker = L.marker(e.latlng).addTo(map)
+                marker.bindPopup("<b>"+e.latlng+"</b><br>").openPopup();
+                markers.push(marker);
+            }
+            map.on('click', onMapClick);
        
 </script>
 
 @if (Model != null)
 {
     <code>
-        <script>
-            function onMapClick(e) {
-                /*HomeController.PointInfo(e.latlng);*/
-                var marker = L.marker(e.latlng).addTo(map)
-                marker.bindPopup("<b>"+e.latlng+"</b><br>").openPopup();
-                markers.push(marker);
-            }
-            map.on('click', onMapClick);
+        <script type="text/javascript">
 
             var lat = @Model.StartDatas[0].lat.ToString().Substring(0,4).Replace(",",".");
             var lon = @Model.StartDatas[0].lon.ToString().Substring(0,4).Replace(",",".");

@@ -1,6 +1,7 @@
 ﻿using DestinationWeather.MVC.Models;
 using Microsoft.Ajax.Utilities;
 using Microsoft.AspNetCore.Mvc;
+using Microsoft.JSInterop;
 using Newtonsoft.Json;
 using ServiceStack.Text;
 using System.Data;
@@ -30,9 +31,10 @@ namespace DestinationWeather.MVC.Controllers
             return View();
         }
 
+        [JSInvokable]
         public static async Task<PointData> PointInfo(string latlong)
         {
-            //LatLng(43.876164, 12.952709)
+            //LatLng(43.876164, 12.952709) formato d'entrata della stringa
             var coord = latlong.Remove(0, 7).Replace(')', ' ').Trim().Split(',');
             string nameCity = await GetStreetAddressForCoordinates(Double.Parse(coord[0].ToString().Replace('.',',').Trim()), Double.Parse(coord[1].ToString().Replace('.', ',').Trim()));
             location City = new location() { CityName = nameCity };
@@ -84,8 +86,6 @@ namespace DestinationWeather.MVC.Controllers
                     var DestinationCityAverages = ProcessCityData(DestinationCity);
 
                     createXml(StartDatas, DestinationDatas, StartCityAverages, DestinationCityAverages);
-
-                    PointInfo("LatLng(43.876164, 12.952709)");
 
                     return View("Index",new MapData(){
                                                 StartDatas = StartDatas,
