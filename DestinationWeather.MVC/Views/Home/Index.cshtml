@@ -24,7 +24,6 @@
 
 <div class="text-center">
     <form method="post" name="modulo">
-        <asp:TextBox id="point" runat="server" />
         <tr><td><b>Start: </b></td><td><input type="text" name="start" id="start" required></td></tr>
         <tr><td><b>Destination: </b></td><td><input type="text" name="destination" required></td></tr>
         <button type="submit" asp-area="" asp-controller="Home" asp-action="Search">Search</button>
@@ -44,9 +43,8 @@
         }).addTo(map);
 
         function onMapClick(e) {
-                document.getElementById("point").value = e.latlng;
-                var point = [];
-                point = @HomeController.PointInfo("LatLng(43.876164, 12.952709)");    
+                //var point = [];
+                //point = @HomeController.PointInfo("LatLng(43.876164, 12.952709)");    
                 //var point = JSRuntime.Current.InvokeAsync<object>("PointInfo", e.latlng); ?? PROVA 1
                 //var point = DotNet.invokeMethodAsync('HomeController', 'PointInfo', e.latlng); ?? PROVA 2
                 var marker = L.marker(e.latlng).addTo(map)
