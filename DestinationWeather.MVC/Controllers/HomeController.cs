@@ -32,8 +32,9 @@ namespace DestinationWeather.MVC.Controllers
 
         public static async Task<PointData> PointInfo(string latlong)
         {
-            var coord = latlong.Split(',');
-            string nameCity = await GetStreetAddressForCoordinates(Double.Parse(coord[0].ToString().Replace('.',',')), Double.Parse(coord[1].ToString().Replace('.', ',')));
+            //LatLng(43.876164, 12.952709)
+            var coord = latlong.Remove(0, 7).Replace(')', ' ').Trim().Split(',');
+            string nameCity = await GetStreetAddressForCoordinates(Double.Parse(coord[0].ToString().Replace('.',',').Trim()), Double.Parse(coord[1].ToString().Replace('.', ',').Trim()));
             location City = new location() { CityName = nameCity };
 
             City.WeatherInfo = GetWeatherInfo(City).Result;
@@ -83,6 +84,8 @@ namespace DestinationWeather.MVC.Controllers
                     var DestinationCityAverages = ProcessCityData(DestinationCity);
 
                     createXml(StartDatas, DestinationDatas, StartCityAverages, DestinationCityAverages);
+
+                    PointInfo("LatLng(43.876164, 12.952709)");
 
                     return View("Index",new MapData(){
                                                 StartDatas = StartDatas,
@@ -158,7 +161,7 @@ namespace DestinationWeather.MVC.Controllers
 
             JsonObject jsonObject = JsonObject.Parse(await httpResult.Content.ReadAsStringAsync());
 
-            var res = jsonObject.ToDictionary()["address"].Split(',')[3].Remove(0,5);
+            var res = jsonObject.ToDictionary()["address"].Split(',')[2].Remove(0, 5);
 
             return res;
         }
@@ -215,7 +218,6 @@ namespace DestinationWeather.MVC.Controllers
                 writer.Flush();
             }
         }
-
 
         [ResponseCache(Duration = 0, Location = ResponseCacheLocation.None, NoStore = true)]
         public IActionResult Error()

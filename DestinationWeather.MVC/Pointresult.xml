@@ -1,0 +1,13 @@
+﻿<?xml version="1.0" encoding="utf-8"?>
+<Response>
+	<City>
+		<city>Pesaro</city>
+		<Temp>
+			<temp0>03/10/2023* 	 56,29°</temp0>
+			<temp1>03/11/2023  	 54,24°</temp1>
+			<temp2>03/12/2023* 	 50,31°</temp2>
+			<temp3>03/13/2023  	 50,81°</temp3>
+			<temp4>03/14/2023  	 53,12°</temp4>
+		</Temp>
+	</City>
+</Response>

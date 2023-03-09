@@ -29,30 +29,29 @@
 
 <div id="map"></div>
 
-<code>
-    <script>
+<script>
+    
         var map = L.map('map').setView([41.29, 12.27], 5);
 
         L.tileLayer('https://tile.openstreetmap.org/{z}/{x}/{y}.png', {
             maxZoom: 19,
             attribution: '&copy; <a href="http://www.openstreetmap.org/copyright">OpenStreetMap</a>'
         }).addTo(map);
-
-        function onMapClick(e) {
-            //var name = await HomeController.GetStreetAddressForCoordinates(e,e);
-            var marker = L.marker(e.latlng).addTo(map)
-            marker.bindPopup("<b>" + e.location + "</b><br>").openPopup();
-            markers.push(marker);
-        }
-
-        map.on('click', onMapClick);
-    </script>
-</code>
+       
+</script>
 
 @if (Model != null)
 {
     <code>
         <script>
+            function onMapClick(e) {
+                /*HomeController.PointInfo(e.latlng);*/
+                var marker = L.marker(e.latlng).addTo(map)
+                marker.bindPopup("<b>"+e.latlng+"</b><br>").openPopup();
+                markers.push(marker);
+            }
+            map.on('click', onMapClick);
+
             var lat = @Model.StartDatas[0].lat.ToString().Substring(0,4).Replace(",",".");
             var lon = @Model.StartDatas[0].lon.ToString().Substring(0,4).Replace(",",".");
             var marker1 = L.marker([lat, lon]).addTo(map)
