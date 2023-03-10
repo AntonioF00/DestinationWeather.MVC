@@ -19,6 +19,7 @@
         public double lat { get; set; }
         public double lon { get; set; }
         public string display_name { get; set; }
+        public string latlng { get; set; }
     }
 }
 

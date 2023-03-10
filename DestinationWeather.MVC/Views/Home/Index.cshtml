@@ -35,28 +35,23 @@
             attribution: '&copy; <a href="http://www.openstreetmap.org/copyright">OpenStreetMap</a>'
         }).addTo(map);
 
-        function onMapClick(e) {
-                //genXML(e.latlng);
-                var marker = L.marker(e.latlng).addTo(map)
-                marker.bindPopup("<b>"+point.City.CityName+"</b><br>").openPopup();
-                markers.push(marker);
-            }
-
-        //prova creazione xml 
-        //function genXML(b){
-        //        var XML = new XMLWriter();
-        //        XML.BeginNode("element");
-        //        XML.Attrib("data",b);
-        //        XML.EndNode();
-        //    }
-
-        map.on('click', onMapClick);
 </script>
 
 @if (Model != null)
 {
     <code>
         <script type="text/javascript">
+
+            function onMapClick(e) {
+                    var point =  String(e.latlng);
+                    @Model.StartDatas[0].latlng = point;
+                    @HomeController.PointInfo(Model.StartDatas[0].latlng);
+                    var marker = L.marker(e.latlng).addTo(map)
+                    marker.bindPopup("<b>"+point.City.CityName+"</b><br>").openPopup();
+                    markers.push(marker);
+                }
+
+            map.on('click', onMapClick);
 
             var lat = @Model.StartDatas[0].lat.ToString().Substring(0,4).Replace(",",".");
             var lon = @Model.StartDatas[0].lon.ToString().Substring(0,4).Replace(",",".");

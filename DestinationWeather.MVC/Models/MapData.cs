@@ -8,6 +8,7 @@ namespace DestinationWeather.MVC.Models
         public List<ResponseData> DestinationDatas { get; set; }
         public List<DayAverages> StartCityAverages { get; set;}
         public List<DayAverages> DestinationCityAverages { get; set;}
+        
     }
 
     public class PointData
