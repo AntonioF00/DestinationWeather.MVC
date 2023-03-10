@@ -34,7 +34,7 @@
 <div id="map"></div>
 
 <script>
-        var map = L.map('map').setView([41.29, 12.27], 5);
+        var map = L.map('map').setView([41.29, 12.27], 6);
 
         L.tileLayer('https://tile.openstreetmap.org/{z}/{x}/{y}.png', {
             maxZoom: 19,
@@ -42,7 +42,7 @@
         }).addTo(map);
 
         function onMapClick(e) {
-                genXML(e.latlng);
+                //genXML(e.latlng);
                 //var point = [];
                 //point = HomeController.PointInfo("LatLng(43.876164, 12.952709)");    
                 //var point = JSRuntime.Current.InvokeAsync<object>("PointInfo", e.latlng); ?? PROVA 1
@@ -53,12 +53,12 @@
             }
 
         //prova creazione xml 
-        function genXML(b){
-                var XML = new XMLWriter();
-                XML.BeginNode("element");
-                XML.Attrib("data",b);
-                XML.EndNode();
-            }
+        //function genXML(b){
+        //        var XML = new XMLWriter();
+        //        XML.BeginNode("element");
+        //        XML.Attrib("data",b);
+        //        XML.EndNode();
+        //    }
 
         map.on('click', onMapClick);
 </script>
