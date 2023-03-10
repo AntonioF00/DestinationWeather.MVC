@@ -48,7 +48,7 @@ namespace DestinationWeather.MVC.Controllers
             //string l = (string.IsNullOrEmpty(latlong)) ? "LatLng(43.876164, 12.952709)" : latlong;
             //var coord = Convert.ToString(latlong).Remove(0, 7).Replace(')', ' ').Trim().Split(',');
             //Double.Parse(coord[0].ToString().Replace('.', ',').Trim())
-            string nameCity = await GetStreetAddressForCoordinates(Double.Parse(datas.latitudine.ToString().Trim()), Double.Parse(datas.longitudine.ToString().Trim()));
+            string nameCity = await GetStreetAddressForCoordinates(Double.Parse(datas.latitudine), Double.Parse(datas.longitudine));
             location City = new location() { CityName = nameCity };
 
             City.WeatherInfo = GetWeatherInfo(City).Result;
@@ -182,9 +182,10 @@ namespace DestinationWeather.MVC.Controllers
             httpClient.DefaultRequestHeaders.UserAgent.Add(productValue);
             httpClient.DefaultRequestHeaders.UserAgent.Add(commentValue);
 
-            HttpResponseMessage httpResult = await httpClient.GetAsync(String.Format($"reverse?format=json&lat={latitude.ToString().Replace(',','.')}&lon={longitude.ToString().Replace(',', '.')}"));
+            HttpResponseMessage httpResult = await httpClient.GetAsync(String.Format($"reverse?format=json&lat={latitude.ToString().Trim()}&lon={longitude.ToString().Trim()}"));
 
             JsonObject jsonObject = JsonObject.Parse(await httpResult.Content.ReadAsStringAsync());
+
             var res = jsonObject.ToDictionary()["address"].Split(',')[2].Remove(0, 5);
 
             return res;
