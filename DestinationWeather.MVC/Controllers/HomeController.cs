@@ -46,7 +46,7 @@ namespace DestinationWeather.MVC.Controllers
             //string l = (string.IsNullOrEmpty(latlong)) ? "LatLng(43.876164, 12.952709)" : latlong;
             //var coord = Convert.ToString(latlong).Remove(0, 7).Replace(')', ' ').Trim().Split(',');
             //Double.Parse(coord[0].ToString().Replace('.', ',').Trim())
-            string nameCity = await GetStreetAddressForCoordinates(Double.Parse(datas.latitudine.ToString().Replace('.', ',').Trim()), Double.Parse(datas.longitudine.ToString().Replace('.', ',').Trim()));
+            string nameCity = await GetStreetAddressForCoordinates(Double.Parse(datas.latitudine.ToString().Trim()), Double.Parse(datas.longitudine.ToString().Trim()));
             location City = new location() { CityName = nameCity };
 
             City.WeatherInfo = GetWeatherInfo(City).Result;
