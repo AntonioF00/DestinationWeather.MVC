@@ -32,6 +32,7 @@ namespace DestinationWeather.MVC.Controllers
         }
 
         [JSInvokable]
+        [HttpPost]
         public static async Task<PointData> PointInfo(string latlong)
         {
             //LatLng(43.876164, 12.952709) formato d'entrata della stringa

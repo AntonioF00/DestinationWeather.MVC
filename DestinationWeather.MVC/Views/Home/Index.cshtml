@@ -43,7 +43,7 @@
         <script type="text/javascript">
 
             function onMapClick(e) {
-                    var point =  String(e.latlng);
+                    const point =  new String(e.latlng);
                     @Model.StartDatas[0].latlng = point;
                     @HomeController.PointInfo(Model.StartDatas[0].latlng);
                     var marker = L.marker(e.latlng).addTo(map)
