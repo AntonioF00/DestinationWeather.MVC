@@ -3,6 +3,8 @@
 using Microsoft.AspNetCore.Mvc;
 using Microsoft.JSInterop;
 using Newtonsoft.Json;
+using ServiceStack;
+using ServiceStack.Messaging;
 using ServiceStack.Text;
 using System.Data;
 using System.Diagnostics;
@@ -183,7 +185,6 @@ namespace DestinationWeather.MVC.Controllers
             HttpResponseMessage httpResult = await httpClient.GetAsync(String.Format($"reverse?format=json&lat={latitude.ToString().Replace(',','.')}&lon={longitude.ToString().Replace(',', '.')}"));
 
             JsonObject jsonObject = JsonObject.Parse(await httpResult.Content.ReadAsStringAsync());
-
             var res = jsonObject.ToDictionary()["address"].Split(',')[2].Remove(0, 5);
 
             return res;
