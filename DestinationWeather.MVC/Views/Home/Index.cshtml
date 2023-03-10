@@ -43,11 +43,11 @@
         <script type="text/javascript">
 
             function onMapClick(e) {
-                    const point =  new String(e.latlng);
-                    @Model.StartDatas[0].latlng = point;
-                    @HomeController.PointInfo(Model.StartDatas[0].latlng);
+                    //var point =  e.latlng;
+                    //Model.StartDatas[0].latlng = point;
+                    //HomeController.PointInfo(Model.StartDatas[0].latlng);
                     var marker = L.marker(e.latlng).addTo(map)
-                    marker.bindPopup("<b>"+point.City.CityName+"</b><br>").openPopup();
+                    marker.bindPopup("<b></b><br>").openPopup();
                     markers.push(marker);
                 }
 
