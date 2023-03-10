@@ -31,12 +31,16 @@ namespace DestinationWeather.MVC.Controllers
             return View();
         }
 
+
+
         [JSInvokable]
         [HttpPost]
-        public static async Task<PointData> PointInfo(string latlong)
+        public static async Task<PointData> PointInfo(object latlong)
         {
+            string l = "";
+            _ = (latlong == null) ? l = "LatLng(43.876164, 12.952709)" : l = Convert.ToString(latlong.ToString());
             //LatLng(43.876164, 12.952709) formato d'entrata della stringa
-            var coord = latlong.Remove(0, 7).Replace(')', ' ').Trim().Split(',');
+            var coord = Convert.ToString(l).Remove(0, 7).Replace(')', ' ').Trim().Split(',');
             string nameCity = await GetStreetAddressForCoordinates(Double.Parse(coord[0].ToString().Replace('.',',').Trim()), Double.Parse(coord[1].ToString().Replace('.', ',').Trim()));
             location City = new location() { CityName = nameCity };
 
