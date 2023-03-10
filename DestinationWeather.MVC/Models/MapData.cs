@@ -14,7 +14,6 @@ namespace DestinationWeather.MVC.Models
         public List<DayAverages> DestinationCityAverages { get; set;}
         
     }
-
     public class PointData
     {
         public location City { get; set; }

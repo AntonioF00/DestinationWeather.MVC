@@ -1,5 +1,4 @@
 ﻿using DestinationWeather.MVC.Models;
-
 using Microsoft.AspNetCore.Mvc;
 using Microsoft.JSInterop;
 using Newtonsoft.Json;
@@ -32,12 +31,6 @@ namespace DestinationWeather.MVC.Controllers
         {
             return View();
         }
-
-
-
-
-        
-
 
         [JSInvokable]
         [HttpPost]

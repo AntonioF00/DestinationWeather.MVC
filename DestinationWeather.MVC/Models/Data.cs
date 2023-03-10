@@ -12,7 +12,6 @@
         }
     }
 
-
     public class ResponseData
     {
         public double place_id { get; set; }
