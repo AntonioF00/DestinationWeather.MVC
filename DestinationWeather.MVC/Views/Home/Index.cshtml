@@ -1,8 +1,5 @@
 ﻿@using DestinationWeather.MVC.Models
 @using DestinationWeather.MVC.Controllers
-@using Microsoft.JSInterop;
-@inject IJSRuntime JSRuntime
-@using static DestinationWeather.MVC.Models.WeatherData;
 @model MapData
 
 @{
@@ -13,9 +10,6 @@
      integrity="sha256-WBkoXOwTeyKclOHuWtc+i2uENFpDZ9YPdf5Hf+D7ewM="
      crossorigin=""></script>
 <script type="text/javascript" src="http://maps.google.com/maps/api/js?sensor=false"></script>
-<script src="Global.js" language="javascript"></script>
-<script src="XMLWriter.js" language="javascript"></script>
-<script src="_content/BrowserInterop/scripts.js"></script>
 
 <div class="text-center">
     <h1 class="display-4">DestinationWeather.MVC</h1>
@@ -43,10 +37,6 @@
 
         function onMapClick(e) {
                 //genXML(e.latlng);
-                //var point = [];
-                //point = HomeController.PointInfo("LatLng(43.876164, 12.952709)");    
-                //var point = JSRuntime.Current.InvokeAsync<object>("PointInfo", e.latlng); ?? PROVA 1
-                //var point = DotNet.invokeMethodAsync('HomeController', 'PointInfo', e.latlng); ?? PROVA 2
                 var marker = L.marker(e.latlng).addTo(map)
                 marker.bindPopup("<b>"+point.City.CityName+"</b><br>").openPopup();
                 markers.push(marker);
