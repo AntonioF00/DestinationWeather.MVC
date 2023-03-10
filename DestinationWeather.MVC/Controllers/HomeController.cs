@@ -15,7 +15,7 @@ namespace DestinationWeather.MVC.Controllers
     public class HomeController : Controller
     {
         private readonly ILogger<HomeController> _logger;
-
+        private MapData globalMapData = new();
         public HomeController(ILogger<HomeController> logger)
         {
             _logger = logger;
@@ -33,15 +33,20 @@ namespace DestinationWeather.MVC.Controllers
 
 
 
+
+        
+
+
         [JSInvokable]
         [HttpPost]
-        public static async Task<PointData> PointInfo(object latlong)
+        public async Task<IActionResult> PointInfo([Bind("latitudine,longitudine")] ResponseData datas, MapData mapdata)
         {
-            string l = "";
-            _ = (latlong == null) ? l = "LatLng(43.876164, 12.952709)" : l = Convert.ToString(latlong.ToString());
+
             //LatLng(43.876164, 12.952709) formato d'entrata della stringa
-            var coord = Convert.ToString(l).Remove(0, 7).Replace(')', ' ').Trim().Split(',');
-            string nameCity = await GetStreetAddressForCoordinates(Double.Parse(coord[0].ToString().Replace('.',',').Trim()), Double.Parse(coord[1].ToString().Replace('.', ',').Trim()));
+            //string l = (string.IsNullOrEmpty(latlong)) ? "LatLng(43.876164, 12.952709)" : latlong;
+            //var coord = Convert.ToString(latlong).Remove(0, 7).Replace(')', ' ').Trim().Split(',');
+            //Double.Parse(coord[0].ToString().Replace('.', ',').Trim())
+            string nameCity = await GetStreetAddressForCoordinates(Double.Parse(datas.latitudine.ToString().Replace('.', ',').Trim()), Double.Parse(datas.longitudine.ToString().Replace('.', ',').Trim()));
             location City = new location() { CityName = nameCity };
 
             City.WeatherInfo = GetWeatherInfo(City).Result;
@@ -55,7 +60,17 @@ namespace DestinationWeather.MVC.Controllers
 
             createPointXml(point);
 
-            return point;
+            return View("Index", new MapData()
+            {
+                StartDatas = globalMapData.StartDatas,
+                DestinationDatas = globalMapData.DestinationDatas,
+                StartCityAverages = globalMapData.StartCityAverages,
+                DestinationCityAverages = globalMapData.DestinationCityAverages,
+                PointCityAverages = CityAverages,
+                PointName = point.City.CityName,
+                PointLat = datas.latitudine,
+                PointLon = datas.longitudine
+            });
         }
 
 
@@ -92,12 +107,15 @@ namespace DestinationWeather.MVC.Controllers
 
                     createXml(StartDatas, DestinationDatas, StartCityAverages, DestinationCityAverages);
 
-                    return View("Index",new MapData(){
-                                                StartDatas = StartDatas,
-                                                DestinationDatas = DestinationDatas,
-                                                StartCityAverages = StartCityAverages,
-                                                DestinationCityAverages = DestinationCityAverages
-                                             });
+                    globalMapData = new MapData()
+                    {
+                        StartDatas = StartDatas,
+                        DestinationDatas = DestinationDatas,
+                        StartCityAverages = StartCityAverages,
+                        DestinationCityAverages = DestinationCityAverages
+                    };
+
+                    return View("Index",globalMapData);
                 }
             }
             catch (Exception ex)

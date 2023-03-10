@@ -20,7 +20,6 @@
     <form method="post" name="modulo">
         <tr><td><b>Start: </b></td><td><input type="text" name="start" id="start" required></td></tr>
         <tr><td><b>Destination: </b></td><td><input type="text" name="destination" required></td></tr>
-        <asp:HiddenField ID="point" runat="server" />
         <button type="submit" asp-area="" asp-controller="Home" asp-action="Search">Search</button>
     </form>
     <br />
@@ -36,28 +35,38 @@
             attribution: '&copy; <a href="http://www.openstreetmap.org/copyright">OpenStreetMap</a>'
         }).addTo(map);
 
-        
-
-</script>
-
-@if (Model != null)
-{
-    <code>
-        <script type="text/javascript">
-
-            //maria concezione 
             function onMapClick(e) {
                     /* ROCK AND ROLL with my keyboard */
-                    var point = document.getElementById('point');
-                    point.value = e.latlng;
-                    Model.StartDatas[0].latlng = point.Value;
-                    @HomeController.PointInfo("LatLng(43.876164, 12.952709)");
+                    //var point = document.getElementById('point');
+                    //point.value = e.latlng;
+                    //Model.StartDatas[0].latlng = point.Value;
+                    //HomeController.PointInfo("LatLng(43.876164, 12.952709)");
                     var marker = L.marker(e.latlng).addTo(map)
                     marker.bindPopup("<b>"+e.latlng+"</b><br>").openPopup();
                 }
 
             map.on('click', onMapClick);
-            
+
+</script>
+
+@if (Model != null)
+{
+    <div class="text-center">
+    <form method="post" name="modulo">
+        <tr><td><b>Latitudine: </b></td><td><input type="text" name="latitudine" id="latitudine" required></td></tr>
+         <tr><td><b>Longitudine: </b></td><td><input type="text" name="longitudine" id="longitudine" required></td></tr>
+        <button type="submit" asp-area="" asp-controller="Home" asp-action="PointInfo">Search</button>
+    </form>
+    </div>
+
+    @if (!string.IsNullOrEmpty(Model.PointName))
+    {
+        <tr><td><b>Name: </b></td><td>@Model.PointName</td></tr>
+        <tr><td><b>Weather: </b></td><td>@Model.PointCityAverages[0].Day.ToString("dd/MM/yyyy") | @Model.PointCityAverages[0].AveTemp.ToString("##0.00")°F</td></tr>
+    }
+
+    <code>
+        <script type="text/javascript">
 
             var lat = @Model.StartDatas[0].lat.ToString().Substring(0,4).Replace(",",".");
             var lon = @Model.StartDatas[0].lon.ToString().Substring(0,4).Replace(",",".");
