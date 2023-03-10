@@ -1,11 +1,9 @@
 {
   "version": 2,
-  "dgSpecHash": "m1fwY9srhr8PwEPnspMwXeParrGTt/O3KYjQpGiWntTcSlIXjl2SpxUWaqmzXIjloFeQqB26ht5O0vfxQ815bA==",
+  "dgSpecHash": "1Vgh4HK2b6SDcwveoavEj5jswCy8K67vXDZTcAj9aXuBwdAiItfTQjnmE9rAXabbGa+ihqml5U1G/GCkRuoYlg==",
   "success": true,
   "projectFilePath": "C:\\PROGETTI_AN\\C#\\DestinationWeather.MVC\\DestinationWeather.MVC\\DestinationWeather.MVC.csproj",
   "expectedPackageFiles": [
-    "C:\\Users\\Software2\\.nuget\\packages\\ajaxmin\\5.14.5506.26202\\ajaxmin.5.14.5506.26202.nupkg.sha512",
-    "C:\\Users\\Software2\\.nuget\\packages\\gmap.net\\1.0.1\\gmap.net.1.0.1.nupkg.sha512",
     "C:\\Users\\Software2\\.nuget\\packages\\googlemaps.locationservices\\1.2.0.5\\googlemaps.locationservices.1.2.0.5.nupkg.sha512",
     "C:\\Users\\Software2\\.nuget\\packages\\microsoft.csharp\\4.7.0\\microsoft.csharp.4.7.0.nupkg.sha512",
     "C:\\Users\\Software2\\.nuget\\packages\\microsoft.dotnet.platformabstractions\\2.0.4\\microsoft.dotnet.platformabstractions.2.0.4.nupkg.sha512",
@@ -113,26 +111,5 @@
     "C:\\Users\\Software2\\.nuget\\packages\\xamarin.essentials\\1.7.5\\xamarin.essentials.1.7.5.nupkg.sha512",
     "C:\\Users\\Software2\\.nuget\\packages\\xamarin.google.ios.maps\\6.0.1.1\\xamarin.google.ios.maps.6.0.1.1.nupkg.sha512"
   ],
-  "logs": [
-    {
-      "code": "NU1701",
-      "level": "Warning",
-      "warningLevel": 1,
-      "message": "Il pacchetto 'AjaxMin 5.14.5506.26202' è stato ripristinato mediante '.NETFramework,Version=v4.6.1, .NETFramework,Version=v4.6.2, .NETFramework,Version=v4.7, .NETFramework,Version=v4.7.1, .NETFramework,Version=v4.7.2, .NETFramework,Version=v4.8, .NETFramework,Version=v4.8.1' e non mediante il framework di destinazione del progetto 'net6.0'. Questo pacchetto potrebbe non essere completamente compatibile con il progetto.",
-      "libraryId": "AjaxMin",
-      "targetGraphs": [
-        "net6.0"
-      ]
-    },
-    {
-      "code": "NU1701",
-      "level": "Warning",
-      "warningLevel": 1,
-      "message": "Il pacchetto 'GMap.Net 1.0.1' è stato ripristinato mediante '.NETFramework,Version=v4.6.1, .NETFramework,Version=v4.6.2, .NETFramework,Version=v4.7, .NETFramework,Version=v4.7.1, .NETFramework,Version=v4.7.2, .NETFramework,Version=v4.8, .NETFramework,Version=v4.8.1' e non mediante il framework di destinazione del progetto 'net6.0'. Questo pacchetto potrebbe non essere completamente compatibile con il progetto.",
-      "libraryId": "GMap.Net",
-      "targetGraphs": [
-        "net6.0"
-      ]
-    }
-  ]
+  "logs": []
 }

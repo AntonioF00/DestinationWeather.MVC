@@ -1,5 +1,5 @@
 ﻿using DestinationWeather.MVC.Models;
-using Microsoft.Ajax.Utilities;
+
 using Microsoft.AspNetCore.Mvc;
 using Microsoft.JSInterop;
 using Newtonsoft.Json;

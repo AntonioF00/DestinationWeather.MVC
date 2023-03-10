@@ -13,7 +13,4 @@
     <SourceRoot Include="C:\Users\Software2\.nuget\packages\" />
     <SourceRoot Include="C:\Program Files (x86)\Microsoft Visual Studio\Shared\NuGetPackages\" />
   </ItemGroup>
-  <PropertyGroup Condition=" '$(ExcludeRestorePackageImports)' != 'true' ">
-    <PkgAjaxMin Condition=" '$(PkgAjaxMin)' == '' ">C:\Users\Software2\.nuget\packages\ajaxmin\5.14.5506.26202</PkgAjaxMin>
-  </PropertyGroup>
 </Project>

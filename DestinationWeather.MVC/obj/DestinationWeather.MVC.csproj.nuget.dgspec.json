@@ -45,10 +45,6 @@
         "net6.0": {
           "targetAlias": "net6.0",
           "dependencies": {
-            "GMap.Net": {
-              "target": "Package",
-              "version": "[1.0.1, )"
-            },
             "GoogleMaps.LocationServices": {
               "target": "Package",
               "version": "[1.2.0.5, )"
