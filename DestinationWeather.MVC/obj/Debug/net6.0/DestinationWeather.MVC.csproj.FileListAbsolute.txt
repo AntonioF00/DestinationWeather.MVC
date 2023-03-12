@@ -80,8 +80,6 @@ D:\BACKUP\Documenti\PROGETTI_ANTONIO\C#\DestinationWeather.MVC\DestinationWeathe
 D:\BACKUP\Documenti\PROGETTI_ANTONIO\C#\DestinationWeather.MVC\DestinationWeather.MVC\obj\Debug\net6.0\DestinationWeather.MVC.pdb
 D:\BACKUP\Documenti\PROGETTI_ANTONIO\C#\DestinationWeather.MVC\DestinationWeather.MVC\obj\Debug\net6.0\DestinationWeather.MVC.genruntimeconfig.cache
 D:\BACKUP\Documenti\PROGETTI_ANTONIO\C#\DestinationWeather.MVC\DestinationWeather.MVC\obj\Debug\net6.0\ref\DestinationWeather.MVC.dll
-D:\BACKUP\Documenti\PROGETTI_ANTONIO\C#\DestinationWeather.MVC\DestinationWeather.MVC\bin\Debug\net6.0\AjaxMin.dll
-D:\BACKUP\Documenti\PROGETTI_ANTONIO\C#\DestinationWeather.MVC\DestinationWeather.MVC\bin\Debug\net6.0\Gmap.net.dll
 C:\PROGETTI_AN\C#\DestinationWeather.MVC\DestinationWeather.MVC\bin\Debug\net6.0\appsettings.Development.json
 C:\PROGETTI_AN\C#\DestinationWeather.MVC\DestinationWeather.MVC\bin\Debug\net6.0\appsettings.json
 C:\PROGETTI_AN\C#\DestinationWeather.MVC\DestinationWeather.MVC\bin\Debug\net6.0\DestinationWeather.MVC.staticwebassets.runtime.json

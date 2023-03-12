@@ -15,8 +15,9 @@ namespace DestinationWeather.MVC.Controllers
 {
     public class HomeController : Controller
     {
+        public  MapData globalMapData = new MapData();
         private readonly ILogger<HomeController> _logger;
-        private MapData globalMapData = new();
+
         public HomeController(ILogger<HomeController> logger)
         {
             _logger = logger;
@@ -41,7 +42,7 @@ namespace DestinationWeather.MVC.Controllers
             //string l = (string.IsNullOrEmpty(latlong)) ? "LatLng(43.876164, 12.952709)" : latlong;
             //var coord = Convert.ToString(latlong).Remove(0, 7).Replace(')', ' ').Trim().Split(',');
             //Double.Parse(coord[0].ToString().Replace('.', ',').Trim())
-            string nameCity = await GetStreetAddressForCoordinates(Double.Parse(datas.latitudine), Double.Parse(datas.longitudine));
+            string nameCity = await GetStreetAddressForCoordinates(datas.latitudine.ToString().Replace('.',','), datas.longitudine.ToString().Replace('.', ','));
             location City = new location() { CityName = nameCity };
 
             City.WeatherInfo = GetWeatherInfo(City).Result;
@@ -164,7 +165,7 @@ namespace DestinationWeather.MVC.Controllers
             return averages;
         }
 
-        public static async Task<string> GetStreetAddressForCoordinates(double latitude, double longitude)
+        public static async Task<string> GetStreetAddressForCoordinates(string latitude, string longitude)
         {
             HttpClient httpClient = new HttpClient();
             httpClient.BaseAddress = new Uri("http://nominatim.openstreetmap.org");
@@ -175,11 +176,11 @@ namespace DestinationWeather.MVC.Controllers
             httpClient.DefaultRequestHeaders.UserAgent.Add(productValue);
             httpClient.DefaultRequestHeaders.UserAgent.Add(commentValue);
 
-            HttpResponseMessage httpResult = await httpClient.GetAsync(String.Format($"reverse?format=json&lat={latitude.ToString().Trim()}&lon={longitude.ToString().Trim()}"));
+            HttpResponseMessage httpResult = await httpClient.GetAsync(String.Format($"reverse?format=json&lat={latitude.Replace(',','.')}&lon={longitude.Replace(',', '.')}"));
 
             JsonObject jsonObject = JsonObject.Parse(await httpResult.Content.ReadAsStringAsync());
 
-            var res = jsonObject.ToDictionary()["address"].Split(',')[2].Remove(0, 5);
+            var res = jsonObject.ToDictionary()["address"].Split(',')[1].Remove(0, 5);
 
             return res;
         }

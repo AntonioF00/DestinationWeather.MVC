@@ -65,28 +65,31 @@
         <tr><td><b>Weather: </b></td><td>@Model.PointCityAverages[0].Day.ToString("dd/MM/yyyy") | @Model.PointCityAverages[0].AveTemp.ToString("##0.00")°F</td></tr>
     }
 
-    <code>
-        <script type="text/javascript">
+    if (Model.StartDatas != null)
+    {
+        <code>
+            <script type="text/javascript">
 
-            var lat = @Model.StartDatas[0].lat.ToString().Substring(0,4).Replace(",",".");
-            var lon = @Model.StartDatas[0].lon.ToString().Substring(0,4).Replace(",",".");
-            var marker1 = L.marker([lat, lon]).addTo(map)
+                var lat = @Model.StartDatas[0].lat.ToString().Substring(0,4).Replace(",",".");
+                var lon = @Model.StartDatas[0].lon.ToString().Substring(0,4).Replace(",",".");
+                var marker1 = L.marker([lat, lon]).addTo(map)
 
-            lat = @Model.DestinationDatas[0].lat.ToString().Substring(0,4).Replace(",",".");
-            lon = @Model.DestinationDatas[0].lon.ToString().Substring(0,4).Replace(",",".");
-            var marker2 = L.marker([lat, lon]).addTo(map)
+                lat = @Model.DestinationDatas[0].lat.ToString().Substring(0,4).Replace(",",".");
+                lon = @Model.DestinationDatas[0].lon.ToString().Substring(0,4).Replace(",",".");
+                var marker2 = L.marker([lat, lon]).addTo(map)
 
-            marker1.bindPopup("<b>@Model.StartDatas[0].display_name.ToString()</b><br>Weather:<br>@Model.StartCityAverages[0].Day.ToString("dd/MM/yyyy") | @Model.StartCityAverages[0].AveTemp.ToString("##0.00")°F").openPopup();
-            marker2.bindPopup("<b>@Model.DestinationDatas[0].display_name.ToString()</b><br>Weather:<br>@Model.DestinationCityAverages[0].Day.ToString("dd/MM/yyyy") | @Model.DestinationCityAverages[0].AveTemp.ToString("##0.00")°F").openPopup();
+                marker1.bindPopup("<b>@Model.StartDatas[0].display_name.ToString()</b><br>Weather:<br>@Model.StartCityAverages[0].Day.ToString("dd/MM/yyyy") | @Model.StartCityAverages[0].AveTemp.ToString("##0.00")°F").openPopup();
+                marker2.bindPopup("<b>@Model.DestinationDatas[0].display_name.ToString()</b><br>Weather:<br>@Model.DestinationCityAverages[0].Day.ToString("dd/MM/yyyy") | @Model.DestinationCityAverages[0].AveTemp.ToString("##0.00")°F").openPopup();
             
-            var latlngs = Array();
-            latlngs.push(marker1.getLatLng());
-            latlngs.push(marker2.getLatLng());
-            var polyline = L.polyline(latlngs, {color: 'blue'}).addTo(map);
-            map.fitBounds(polyline.getBounds());                
+                var latlngs = Array();
+                latlngs.push(marker1.getLatLng());
+                latlngs.push(marker2.getLatLng());
+                var polyline = L.polyline(latlngs, {color: 'blue'}).addTo(map);
+                map.fitBounds(polyline.getBounds());                
 
-        </script>
-    </code>
+            </script>
+        </code>
+    }
 }else{
 
 }
