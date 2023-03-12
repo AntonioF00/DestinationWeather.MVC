@@ -10,7 +10,7 @@ namespace DestinationWeather.MVC.Models
         public string PointLat { get; set; }
         public string PointLon { get; set; }
         public List<DayAverages> PointCityAverages { get; set; }
-        public List<DayAverages> StartCityAverages { get; set;}
+        public List<DayAverages> StartCityAverages { get; set; }
         public List<DayAverages> DestinationCityAverages { get; set;}
         
     }

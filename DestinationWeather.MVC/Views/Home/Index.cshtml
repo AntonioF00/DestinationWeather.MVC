@@ -36,11 +36,6 @@
         }).addTo(map);
 
             function onMapClick(e) {
-                    /* ROCK AND ROLL with my keyboard */
-                    //var point = document.getElementById('point');
-                    //point.value = e.latlng;
-                    //Model.StartDatas[0].latlng = point.Value;
-                    //HomeController.PointInfo("LatLng(43.876164, 12.952709)");
                     var marker = L.marker(e.latlng).addTo(map)
                     marker.bindPopup("<b>"+e.latlng+"</b><br>").openPopup();
                 }
@@ -61,8 +56,10 @@
 
     @if (!string.IsNullOrEmpty(Model.PointName))
     {
-        <tr><td><b>Name: </b></td><td>@Model.PointName</td></tr>
-        <tr><td><b>Weather: </b></td><td>@Model.PointCityAverages[0].Day.ToString("dd/MM/yyyy") | @Model.PointCityAverages[0].AveTemp.ToString("##0.00")°F</td></tr>
+        <div class="text-center">
+            <tr><td><b>Name: </b></td><td>@Model.PointName</td></tr>
+            <tr><td><b>Weather: </b></td><td>@Model.PointCityAverages[0].Day.ToString("dd/MM/yyyy") | @Model.PointCityAverages[0].AveTemp.ToString("##0.00")°F</td></tr>
+        </div>
     }
 
     if (Model.StartDatas != null)

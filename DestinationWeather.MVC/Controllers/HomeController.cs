@@ -39,9 +39,6 @@ namespace DestinationWeather.MVC.Controllers
         {
 
             //LatLng(43.876164, 12.952709) formato d'entrata della stringa
-            //string l = (string.IsNullOrEmpty(latlong)) ? "LatLng(43.876164, 12.952709)" : latlong;
-            //var coord = Convert.ToString(latlong).Remove(0, 7).Replace(')', ' ').Trim().Split(',');
-            //Double.Parse(coord[0].ToString().Replace('.', ',').Trim())
             string nameCity = await GetStreetAddressForCoordinates(datas.latitudine.ToString().Replace('.',','), datas.longitudine.ToString().Replace('.', ','));
             location City = new location() { CityName = nameCity };
 
